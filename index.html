@@ -131,6 +131,20 @@
     .btn-ci-form { width: 100%; font-family: var(--sans); font-size: 12px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; padding: 15px 36px; background: var(--anthrazit); color: #fff; border: none; cursor: pointer; transition: background 0.2s; }
     .btn-ci-form:hover { background: #3a3f45; }
 
+    /* HAMBURGER + MOBILE NAV */
+    .nav-hamburger { display: none; flex-direction: column; justify-content: space-between; width: 22px; height: 15px; background: none; border: none; cursor: pointer; padding: 0; margin-left: 16px; flex-shrink: 0; }
+    .nav-hamburger span { display: block; width: 100%; height: 1.5px; background: var(--text); transition: transform 0.25s, opacity 0.25s; }
+    .nav-hamburger.open span:nth-child(1) { transform: translateY(6.75px) rotate(45deg); }
+    .nav-hamburger.open span:nth-child(2) { opacity: 0; }
+    .nav-hamburger.open span:nth-child(3) { transform: translateY(-6.75px) rotate(-45deg); }
+
+    .mobile-nav { display: none; position: fixed; top: 90px; left: 0; right: 0; bottom: 0; background: rgba(242,241,239,0.99); backdrop-filter: blur(12px); z-index: 99; flex-direction: column; padding: 8px 24px 40px; overflow-y: auto; opacity: 0; pointer-events: none; transition: opacity 0.25s; }
+    .mobile-nav.open { opacity: 1; pointer-events: all; }
+    .mobile-nav-link { font-family: var(--serif); font-size: 26px; font-weight: 400; color: var(--text); padding: 20px 0; border-bottom: 1px solid var(--border); display: block; text-decoration: none; background: none; border-left: none; border-right: none; border-top: none; cursor: pointer; letter-spacing: 0; text-align: left; width: 100%; }
+    .mobile-nav-link:first-child { border-top: 1px solid var(--border); margin-top: 8px; }
+    .mobile-nav-login { margin-top: 36px; display: block; width: 100%; font-family: var(--sans); font-size: 12px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; padding: 15px 36px; background: var(--anthrazit); color: #fff; border: none; cursor: pointer; transition: background 0.2s; text-align: center; }
+    .mobile-nav-login:hover { background: #3a3f45; }
+
     /* ANIMATIONEN */
     @keyframes fadeUp { to { opacity: 1; transform: translateY(0); } }
     @keyframes fadeIn { to { opacity: 1; } }
@@ -149,11 +163,38 @@
       .footer-grid { grid-template-columns: 1fr 1fr; gap: 40px; }
     }
     @media (max-width: 640px) {
-      nav { padding: 0 24px; }
+      nav { padding: 0 20px; height: 72px; }
+      .nav-logo { font-size: 16px; }
       .nav-links { display: none; }
-      .hero-content { padding: 0 24px; }
-      .section-services, .section-about, .section-contact, footer { padding-left: 24px; padding-right: 24px; }
-      .services-grid, .form-row, .footer-grid { grid-template-columns: 1fr; }
+      .nav-login { display: none; }
+      .nav-hamburger { display: flex; }
+      .mobile-nav { display: flex; top: 72px; }
+
+      .hero { align-items: flex-start; padding-top: 112px; padding-bottom: 72px; min-height: 100svh; }
+      .hero-content { padding: 0 20px; }
+      .hero-scroll { display: none; }
+      .hero-btns { flex-direction: column; gap: 12px; }
+      .btn-white, .btn-outline { width: 100%; text-align: center; }
+
+      .section-services { padding: 56px 20px; }
+      .section-about { padding: 56px 20px; }
+      .section-contact { padding: 56px 20px; }
+      footer { padding: 56px 20px 36px; }
+
+      .section-label { font-size: 11px; letter-spacing: 0.14em; }
+      .section-title { margin-bottom: 48px; }
+      .services-grid { grid-template-columns: 1fr; }
+      .service-card { padding: 32px 24px; }
+
+      .stats-grid { grid-template-columns: 1fr 1fr; gap: 32px; }
+      .stat-num { font-size: 40px; }
+      .stat-label { font-size: 11px; }
+
+      .form-row, .footer-grid { grid-template-columns: 1fr; }
+      .footer-bottom { flex-direction: column; gap: 8px; text-align: center; padding-top: 20px; }
+
+      .modal { padding: 36px 20px; }
+      .modal-title { font-size: 24px; }
     }
   </style>
   <link rel="stylesheet" href="cookie-consent.css" />
@@ -171,7 +212,19 @@
       <li><a href="#" onclick="openContactInfoModal(); return false;">Kontakt</a></li>
     </ul>
     <button class="nav-login">Login</button>
+    <button class="nav-hamburger" id="navHamburger" aria-label="Menü öffnen">
+      <span></span><span></span><span></span>
+    </button>
   </nav>
+
+  <div class="mobile-nav" id="mobileNav">
+    <a href="#" class="mobile-nav-link" onclick="closeMobileNav()">Startseite</a>
+    <a href="gewerbe.html" class="mobile-nav-link" onclick="closeMobileNav()">Gewerbe & Industriekunden</a>
+    <a href="privatkunden.html" class="mobile-nav-link" onclick="closeMobileNav()">Privatkunden</a>
+    <a href="#about" class="mobile-nav-link" onclick="closeMobileNav()">Über uns</a>
+    <a href="#" class="mobile-nav-link" onclick="closeMobileNav(); setTimeout(openContactInfoModal, 200);">Kontakt</a>
+    <button class="mobile-nav-login" onclick="closeMobileNav(); setTimeout(() => document.querySelector('.nav-login').click(), 200);">Login</button>
+  </div>
 
   <section class="hero">
     <div class="hero-bg"></div>
@@ -306,6 +359,12 @@
     window.addEventListener('scroll', () => {
       document.getElementById('navbar').style.background = window.scrollY > 50 ? 'rgba(242,241,239,0.99)' : 'rgba(242,241,239,0.96)'
     })
+    const hamburger = document.getElementById('navHamburger');
+    const mobileNav = document.getElementById('mobileNav');
+    function openMobileNav() { hamburger.classList.add('open'); mobileNav.classList.add('open'); document.body.style.overflow = 'hidden'; }
+    function closeMobileNav() { hamburger.classList.remove('open'); mobileNav.classList.remove('open'); document.body.style.overflow = ''; }
+    hamburger.addEventListener('click', () => mobileNav.classList.contains('open') ? closeMobileNav() : openMobileNav());
+
     function openContactInfoModal() {
       document.getElementById('contactInfoModal').classList.add('open');
       document.body.style.overflow = 'hidden';
@@ -323,7 +382,7 @@
       document.body.style.overflow = '';
     }
     function closeModalOnBackdrop(e) { if (e.target === document.getElementById('contactModal')) closeModal(); }
-    document.addEventListener('keydown', e => { if (e.key === 'Escape') { closeModal(); closeContactInfoModal(); } })
+    document.addEventListener('keydown', e => { if (e.key === 'Escape') { closeModal(); closeContactInfoModal(); closeMobileNav(); } })
 
     async function submitForm(formEl, btnEl, successHtml) {
       btnEl.textContent = 'Wird gesendet…';
