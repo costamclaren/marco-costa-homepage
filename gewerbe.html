@@ -1,2 +1,726 @@
 <!DOCTYPE html>
-<html><head><meta http-equiv="refresh" content="0;url=/gewerbe"><link rel="canonical" href="https://www.marco-costa.de/gewerbe"></head><body></body></html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Gewerbe & Industriekunden – Marco Costa Versicherungsmakler</title>
+  <meta name="description" content="Gewerbliche Versicherungslösungen für Unternehmen – strategisch, präzise und auf Ihre Branche abgestimmt." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://www.marco-costa.de/gewerbe" />
+  <meta property="og:title" content="Gewerbe & Industriekunden – Marco Costa Versicherungsmakler" />
+  <meta property="og:description" content="Gewerbliche Versicherungslösungen für Unternehmen – strategisch, präzise und auf Ihre Branche abgestimmt." />
+  <meta property="og:image" content="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=1200&q=80" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:locale" content="de_DE" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,700;1,400;1,500&family=Lato:wght@300;400;700&display=swap" rel="stylesheet" />
+
+  <style>
+    :root {
+      --anthrazit: #2d3035;
+      --bg: #f2f1ef;
+      --white: #ffffff;
+      --text: #1a1c1e;
+      --muted: #6b6f74;
+      --gold: #b89a6a;
+      --border: rgba(45,48,53,0.12);
+      --serif: 'Playfair Display', Georgia, serif;
+      --sans: 'Lato', sans-serif;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body { height: 100%; overflow: hidden; overscroll-behavior: none; }
+    body { font-family: var(--sans); background: var(--bg); color: var(--text); -webkit-font-smoothing: antialiased; }
+    a { text-decoration: none; color: inherit; }
+
+    #fp-wrap {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      will-change: transform;
+      transform: translateY(0);
+      transition: transform 0.85s cubic-bezier(0.65, 0, 0.35, 1);
+    }
+
+    /* NAV */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      height: 90px; background: #f2f1ef;
+      backdrop-filter: blur(12px); border-bottom: 1px solid var(--border);
+      display: flex; align-items: center; padding: 0 56px;
+      transition: background 0.3s;
+    }
+    .nav-logo { font-family: var(--serif); font-size: 22px; font-weight: 400; color: var(--text); letter-spacing: 0.01em; white-space: nowrap; margin-right: auto; }
+    .nav-links { display: flex; align-items: center; gap: 32px; list-style: none; }
+    .nav-links a { font-family: var(--sans); font-size: 15px; font-weight: 400; color: var(--text); letter-spacing: 0.04em; white-space: nowrap; position: relative; padding-bottom: 2px; }
+    .nav-links a.active::after { content: ''; position: absolute; bottom: -1px; left: 0; width: 100%; height: 1px; background: var(--text); }
+    .nav-login { margin-left: 32px; font-family: var(--sans); font-size: 13px; font-weight: 400; letter-spacing: 0.06em; padding: 8px 22px; border: 1px solid var(--text); color: var(--text); background: transparent; cursor: pointer; white-space: nowrap; transition: background 0.2s, color 0.2s; }
+    .nav-login:hover { background: var(--text); color: var(--white); }
+
+    /* HERO */
+    .hero { position: relative; height: 100dvh; min-height: 100dvh; display: flex; align-items: center; padding-bottom: 0; overflow: hidden; background: var(--anthrazit) }
+    .hero-bg { position: absolute; inset: 0; background-image: url('https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=1800&q=80'); background-size: cover; background-position: center; opacity: 0.4; }
+    .hero-overlay { position: absolute; inset: 0; background: linear-gradient(160deg, rgba(45,48,53,0.2) 0%, rgba(45,48,53,0.55) 50%, rgba(45,48,53,0.88) 100%); }
+    .hero-content { position: relative; z-index: 2; max-width: 1280px; width: 100%; margin: 0 auto; padding: 0 56px; }
+    .hero-label { font-family: var(--sans); font-size: 13px; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: var(--gold); margin-bottom: 16px; opacity: 0; animation: fadeUp 1s 0.2s forwards; }
+    .hero-title { font-family: var(--serif); font-size: clamp(38px, 5.5vw, 72px); font-weight: 400; color: #fff; line-height: 1.1; letter-spacing: -0.01em; margin-bottom: 18px; opacity: 0; transform: translateY(30px); animation: fadeUp 1s 0.35s forwards; }
+    .hero-sub { font-family: var(--serif); font-size: clamp(22px, 2.8vw, 40px); font-style: italic; color: rgba(255,255,255,0.8); line-height: 1.45; margin-bottom: 44px; opacity: 0; transform: translateY(30px); animation: fadeUp 1s 0.5s forwards; }
+    .hero-btns { opacity: 0; transform: translateY(30px); animation: fadeUp 1s 0.65s forwards; }
+    .btn-white { font-family: var(--sans); font-size: 12px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; padding: 15px 36px; background: #fff; color: var(--anthrazit); display: inline-block; transition: background 0.2s; }
+    .btn-white:hover { background: #e8e6e3; }
+
+    /* SECTIONS */
+    .inner { max-width: 1280px; margin: 0 auto; width: 100%; }
+    .section-label { font-family: var(--sans); font-size: 18px; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: var(--gold); margin-bottom: 18px; }
+    .section-title { font-family: var(--serif); font-size: clamp(26px, 2.8vw, 42px); font-weight: 400; color: var(--text); line-height: 1.2; margin-bottom: 28px; }
+    .section-text { font-family: var(--sans); font-size: 15px; line-height: 1.9; color: var(--muted); font-weight: 300; max-width: 760px; }
+
+    /* EINLEITUNG */
+    .section-intro { background: var(--bg); padding: 72px 56px; min-height: 100dvh; display: flex; flex-direction: column; justify-content: center }
+    .section-intro .section-title { max-width: 640px; }
+    .section-intro .section-text { margin-bottom: 20px; }
+
+    /* LEISTUNGEN */
+    .section-leistungen { background: var(--white); padding: 72px 56px; height: 100dvh; overflow-y: auto; overscroll-behavior-y: contain; }
+    .section-leistungen .section-title { margin-bottom: 56px; }
+    .leistungen-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; }
+    .leistung-card { background: var(--bg); padding: 40px 32px; border: 1px solid rgba(45,48,53,0.07); transition: background 0.35s, border-color 0.35s; cursor: default; }
+    .leistung-card:hover { background: var(--anthrazit); border-color: var(--anthrazit); }
+    .leistung-card:hover .l-num, .leistung-card:hover .l-name, .leistung-card:hover .l-desc { color: rgba(255,255,255,0.85); }
+    .leistung-card:hover .l-line { background: rgba(255,255,255,0.15); }
+    .l-num { font-family: var(--serif); font-size: 12px; color: var(--muted); margin-bottom: 22px; transition: color 0.35s; }
+    .l-name { font-family: var(--serif); font-size: 22px; font-weight: 400; color: var(--text); line-height: 1.3; margin-bottom: 14px; transition: color 0.35s; }
+    .l-line { width: 28px; height: 1px; background: var(--border); margin-bottom: 14px; transition: background 0.35s; }
+    .l-desc { font-family: var(--sans); font-size: 16px; line-height: 1.75; color: var(--muted); font-weight: 300; transition: color 0.35s; }
+
+    /* BRANCHEN */
+    .section-branchen { background: var(--bg); padding: 72px 56px; min-height: 100dvh; display: flex; flex-direction: column; justify-content: center }
+    .branchen-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 2px; margin: 48px 0; }
+    .branche-item { background: var(--white); padding: 28px 24px; border: 1px solid rgba(45,48,53,0.07); font-family: var(--serif); font-size: 19px; font-weight: 400; color: var(--text); transition: background 0.25s, color 0.25s; }
+    .branche-item:hover { background: var(--anthrazit); color: #fff; }
+    .branchen-note { font-family: var(--sans); font-size: 14px; font-weight: 300; color: var(--muted); font-style: italic; margin-top: 32px; }
+
+    /* VORGEHENSWEISE */
+    .section-prozess { background: var(--anthrazit); padding: 72px 56px; min-height: 100dvh; display: flex; flex-direction: column; justify-content: center }
+    .section-prozess .section-label { color: var(--gold); }
+    .section-prozess .section-title { color: #fff; margin-bottom: 72px; }
+    .prozess-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 2px; }
+    .prozess-step { padding: 40px 28px; border: 1px solid rgba(255,255,255,0.1); transition: background 0.3s, border-color 0.3s; }
+    .prozess-step:hover { background: rgba(255,255,255,0.06); border-color: var(--gold); }
+    .prozess-step:hover .p-num { color: #fff; }
+    .prozess-step:hover .p-name { color: #fff; }
+    .prozess-step:hover .p-desc { color: rgba(255,255,255,0.8); }
+    .p-num { font-family: var(--serif); font-size: 36px; font-weight: 400; color: var(--gold); margin-bottom: 24px; line-height: 1; }
+    .p-name { font-family: var(--serif); font-size: 18px; font-weight: 400; color: #fff; margin-bottom: 14px; line-height: 1.3; }
+    .p-line { width: 28px; height: 1px; background: rgba(255,255,255,0.2); margin-bottom: 14px; }
+    .p-desc { font-family: var(--sans); font-size: 13px; line-height: 1.75; color: rgba(255,255,255,0.55); font-weight: 300; }
+
+    /* CTA */
+    .section-cta { background: var(--bg); padding: 72px 56px; min-height: 100dvh; display: flex; flex-direction: column; justify-content: center }
+    .cta-inner { max-width: 1280px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 96px; align-items: center; width: 100%; }
+    .cta-title { font-family: var(--serif); font-size: clamp(28px, 3vw, 44px); font-weight: 400; color: var(--text); line-height: 1.2; margin-bottom: 24px; }
+    .cta-text { font-family: var(--sans); font-size: 15px; line-height: 1.85; color: var(--muted); font-weight: 300; margin-bottom: 40px; }
+    .btn-dark { display: inline-block; font-family: var(--sans); font-size: 12px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; padding: 15px 36px; background: var(--anthrazit); color: #fff; border: none; cursor: pointer; transition: background 0.2s; }
+    .btn-dark:hover { background: #3a3f45; }
+
+    /* FOOTER */
+    footer { background: var(--bg); border-top: 1px solid var(--border); padding: 80px 56px 48px; }
+    .footer-grid { max-width: 1280px; margin: 0 auto; display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 64px; margin-bottom: 64px; }
+    .footer-brand { font-family: var(--serif); font-size: 22px; font-weight: 400; color: var(--text); line-height: 1.25; margin-bottom: 14px; }
+    .footer-sub { font-family: var(--sans); font-size: 15px; color: var(--muted); font-weight: 300; line-height: 1.6; }
+    .footer-col-title { font-family: var(--serif); font-size: 21px; font-weight: 400; color: var(--text); margin-bottom: 20px; }
+    .footer-col-list { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+    .footer-col-list li, .footer-col-list a { font-family: var(--sans); font-size: 15px; font-weight: 300; color: var(--muted); line-height: 1.6; }
+    .footer-col-list a:hover { color: var(--text); text-decoration: underline; }
+    .footer-bottom { max-width: 1280px; margin: 0 auto; padding-top: 24px; border-top: 1px solid rgba(45,48,53,0.07); display: flex; justify-content: space-between; align-items: center; }
+    .footer-copy { font-family: var(--sans); font-size: 12px; color: var(--muted); font-weight: 300; }
+
+    /* MODAL */
+    .modal-backdrop { position: fixed; inset: 0; z-index: 200; background: rgba(26,28,30,0.72); backdrop-filter: blur(4px); display: flex; align-items: center; justify-content: center; padding: 24px; opacity: 0; pointer-events: none; transition: opacity 0.3s; }
+    .modal-backdrop.open { opacity: 1; pointer-events: all; }
+    .modal { background: var(--white); width: 100%; max-width: 620px; max-height: 90vh; overflow-y: auto; padding: 56px; position: relative; transform: translateY(20px); transition: transform 0.3s; }
+    .modal-backdrop.open .modal { transform: translateY(0); }
+    .modal-close { position: absolute; top: 20px; right: 24px; background: none; border: none; cursor: pointer; color: var(--muted); font-size: 28px; line-height: 1; padding: 4px; transition: color 0.2s; }
+    .modal-close:hover { color: var(--text); }
+    .modal-title { font-family: var(--serif); font-size: clamp(22px, 2.5vw, 32px); font-weight: 400; color: var(--text); margin-bottom: 8px; }
+    .modal-sub { font-family: var(--sans); font-size: 15px; color: var(--muted); font-weight: 300; margin-bottom: 36px; line-height: 1.6; }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+    .form-group { display: flex; flex-direction: column; padding: 20px 0; border-bottom: 1px solid var(--border); }
+    .form-group.full { grid-column: 1 / -1; }
+    .form-label { font-family: var(--sans); font-size: 10px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); margin-bottom: 10px; }
+    .form-label span { font-weight: 300; opacity: 0.55; }
+    .form-input, .form-textarea { font-family: var(--sans); font-size: 17px; font-weight: 300; color: var(--text); background: transparent; border: none; outline: none; width: 100%; resize: none; }
+    .form-textarea { min-height: 90px; }
+    .btn-send { margin-top: 36px; display: inline-block; font-family: var(--sans); font-size: 12px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; padding: 15px 36px; background: var(--anthrazit); color: #fff; border: none; cursor: pointer; transition: background 0.2s; }
+    .btn-send:hover { background: #3a3f45; }
+    @media (max-width: 640px) { .modal { padding: 40px 24px; } .form-row { grid-template-columns: 1fr; } }
+
+    /* ANIMATIONEN */
+    @keyframes fadeUp { to { opacity: 1; transform: translateY(0); } }
+    .reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.7s ease, transform 0.7s ease; }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+
+    /* HAMBURGER */
+    .nav-hamburger { display: none; flex-direction: column; justify-content: center; gap: 5px; background: none; border: none; cursor: pointer; padding: 8px; margin-left: 16px; }
+    .nav-hamburger span { display: block; width: 24px; height: 2px; background: var(--text); transition: transform 0.3s, opacity 0.3s; }
+    .nav-hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .nav-hamburger.open span:nth-child(2) { opacity: 0; }
+    .nav-hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+    /* MOBILE NAV */
+    .mobile-nav { display: none; position: fixed; top: 90px; left: 0; right: 0; background: rgba(242,241,239,0.99); backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); flex-direction: column; padding: 24px 28px; gap: 4px; z-index: 99; transform: translateY(-8px); opacity: 0; transition: transform 0.25s ease, opacity 0.25s ease; pointer-events: none; }
+    .mobile-nav.open { transform: translateY(0); opacity: 1; pointer-events: all; }
+    .mobile-nav-link { font-family: var(--sans); font-size: 17px; font-weight: 400; color: var(--text); letter-spacing: 0.03em; padding: 14px 0; border-bottom: 1px solid var(--border); }
+    .mobile-nav-link:last-of-type { border-bottom: none; }
+    .mobile-nav-login { margin-top: 16px; font-family: var(--sans); font-size: 11px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; padding: 14px; background: var(--anthrazit); color: #fff; border: none; cursor: pointer; width: 100%; }
+
+    /* RESPONSIVE */
+    @media (max-width: 1024px) {
+      .leistungen-grid { grid-template-columns: 1fr 1fr; }
+      .branchen-grid { grid-template-columns: repeat(2, 1fr); }
+      .prozess-grid { grid-template-columns: 1fr 1fr; }
+      .cta-inner { grid-template-columns: 1fr; gap: 48px; }
+      .footer-grid { grid-template-columns: 1fr 1fr; gap: 40px; }
+    }
+    @media (max-width: 900px) {
+      .nav-links { display: none; }
+      .nav-login { display: none; }
+      .nav-hamburger { display: flex; }
+      .mobile-nav { display: flex; }
+    }
+    @media (max-width: 640px) {
+      nav { padding: 0 20px; height: 72px; }
+      .nav-logo { font-size: 16px; }
+      .mobile-nav { top: 72px; }
+      .hero { align-items: flex-start; padding-top: 72px; padding-bottom: 0; }
+      .hero-content { padding: 0 20px 40px; display: flex; flex-direction: column; height: calc(100dvh - 72px); }
+      .hero-title { font-size: 34px; margin-top: auto; }
+      .hero-sub { font-size: 22px; margin-top: 14px; margin-bottom: auto; }
+      .section-intro, .section-leistungen, .section-branchen, .section-prozess, .section-cta { padding: 48px 20px; }
+      footer { padding: 48px 20px 32px; }
+      .leistungen-grid { grid-template-columns: 1fr; }
+      .branchen-grid { grid-template-columns: 1fr 1fr; }
+      .prozess-grid { grid-template-columns: 1fr; }
+      .footer-grid { grid-template-columns: 1fr; gap: 32px; }
+      .leistung-card { padding: 28px 20px; }
+      .branche-item { padding: 20px 16px; font-size: 17px; }
+      .prozess-step { padding: 28px 20px; }
+      .footer-bottom { flex-direction: column; gap: 8px; text-align: center; padding-top: 20px; }
+      .modal { padding: 36px 20px; }
+      .form-row { grid-template-columns: 1fr; }
+      .cta-inner { gap: 32px; }
+    }
+  </style>
+  <link rel="stylesheet" href="/cookie-consent.css" />
+  <link rel="stylesheet" href="/login-modal.css" />
+</head>
+<body>
+
+  <nav id="navbar">
+    <a href="/" class="nav-logo">Marco Costa Versicherungsmakler</a>
+    <ul class="nav-links">
+      <li><a href="/">Startseite</a></li>
+      <li><a href="/gewerbe" class="active">Gewerbe & Industriekunden</a></li>
+      <li><a href="/privatkunden">Privatkunden</a></li>
+      <li><a href="/#about">Über uns</a></li>
+      <li><a href="/#kontakt">Kontakt</a></li>
+    </ul>
+    <button class="nav-login">Login</button>
+    <button class="nav-hamburger" id="navHamburger" aria-label="Menü öffnen">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+
+  <div class="mobile-nav" id="mobileNav">
+    <a href="/" class="mobile-nav-link" onclick="closeMobileNav()">Startseite</a>
+    <a href="/gewerbe" class="mobile-nav-link" onclick="closeMobileNav()">Gewerbe & Industriekunden</a>
+    <a href="/privatkunden" class="mobile-nav-link" onclick="closeMobileNav()">Privatkunden</a>
+    <a href="/#about" class="mobile-nav-link" onclick="closeMobileNav()">Über uns</a>
+    <a href="/#kontakt" class="mobile-nav-link" onclick="closeMobileNav()">Kontakt</a>
+    <button class="mobile-nav-login" onclick="closeMobileNav(); setTimeout(() => document.querySelector('.nav-login').click(), 200);">Login</button>
+  </div>
+
+  <div id="fp-wrap">
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+      <h1 class="hero-title">Gewerbe & Industriekunden</h1>
+      <p class="hero-sub">Versicherungslösungen für Unternehmen<br>– strategisch, präzise und auf Ihre Branche abgestimmt.</p>
+      <div class="hero-btns">
+        <a href="#" class="btn-white" onclick="openModal(); return false;">Beratung vereinbaren</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- EINLEITUNG -->
+  <section class="section-intro">
+    <div class="inner">
+      <p class="section-label reveal">Für Unternehmen</p>
+      <h2 class="section-title reveal">Ihr Versicherungsmakler für unternehmerische Risiken</h2>
+      <p class="section-text reveal">Unternehmerische Risiken sind komplex — und selten mit Standardlösungen beherrschbar. Als zugelassener Versicherungsmakler nach § 34d GewO analysieren wir Ihre individuelle Risikostruktur und entwickeln maßgeschneiderte Versicherungskonzepte, die Ihr Unternehmen wirksam absichern.</p>
+      <br>
+      <p class="section-text reveal">Wir arbeiten ausschließlich in Ihrem Interesse und sind keinem Versicherer verpflichtet. Unser Ziel ist es, für jede unternehmerische Anforderung die wirtschaftlich und inhaltlich beste Lösung zu finden — branchenübergreifend, ohne Produktbindung und mit höchstem Qualitätsanspruch.</p>
+    </div>
+  </section>
+
+  <!-- ARBEITSWEISE -->
+  <section class="section-prozess">
+    <div class="inner">
+      <p class="section-label reveal">Arbeitsweise</p>
+      <h2 class="section-title reveal">Unsere Arbeitsweise</h2>
+      <div class="prozess-grid">
+        <div class="prozess-step reveal">
+          <div class="p-num">01</div>
+          <h3 class="p-name">Erstgespräch</h3>
+          <div class="p-line"></div>
+          <p class="p-desc">Wir lernen Ihr Unternehmen kennen: Geschäftsmodell, Branche, bestehende Versicherungen, aktuelle Herausforderungen.</p>
+        </div>
+        <div class="prozess-step reveal">
+          <div class="p-num">02</div>
+          <h3 class="p-name">Risikoanalyse</h3>
+          <div class="p-line"></div>
+          <p class="p-desc">Systematische Erfassung und Bewertung Ihrer unternehmerischen Risiken. Identifikation von Deckungslücken und Optimierungspotenzialen.</p>
+        </div>
+        <div class="prozess-step reveal">
+          <div class="p-num">03</div>
+          <h3 class="p-name">Marktvergleich & Konzeption</h3>
+          <div class="p-line"></div>
+          <p class="p-desc">Wir vergleichen die relevanten Anbieter und entwickeln ein individuelles Versicherungskonzept — wirtschaftlich sinnvoll und inhaltlich belastbar.</p>
+        </div>
+        <div class="prozess-step reveal">
+          <div class="p-num">04</div>
+          <h3 class="p-name">Umsetzung & Betreuung</h3>
+          <div class="p-line"></div>
+          <p class="p-desc">Übernahme der gesamten Abwicklung: Antragstellung, Policierung, Vertragsverwaltung. Laufende Überprüfung und Anpassung an veränderte Rahmenbedingungen.</p>
+        </div>
+        <div class="prozess-step reveal">
+          <div class="p-num">05</div>
+          <h3 class="p-name">Schadenmanagement</h3>
+          <div class="p-line"></div>
+          <p class="p-desc">Im Schadensfall übernehmen wir die vollständige Kommunikation mit dem Versicherer und begleiten Sie bis zur Regulierung.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- LEISTUNGEN -->
+  <section class="section-leistungen">
+    <div class="inner">
+      <p class="section-label reveal">Leistungsbereiche</p>
+      <h2 class="section-title reveal">Unsere Leistungen im Überblick</h2>
+      <div class="leistungen-grid">
+        <div class="leistung-card reveal">
+          <div class="l-num">01</div>
+          <h3 class="l-name">Betriebshaftpflichtversicherung</h3>
+          <div class="l-line"></div>
+          <p class="l-desc">Absicherung gegen Personen-, Sach- und Vermögensschäden, die aus Ihrer betrieblichen Tätigkeit resultieren. Wir prüfen bestehende Deckungen auf Lücken und passen den Schutz an Ihre tatsächliche Risikolage an.</p>
+        </div>
+        <div class="leistung-card reveal">
+          <div class="l-num">02</div>
+          <h3 class="l-name">Berufshaftpflicht & Vermögensschadenhaftpflicht</h3>
+          <div class="l-line"></div>
+          <p class="l-desc">Für beratende Berufe, Freiberufler und Dienstleister: Absicherung gegen finanzielle Schäden, die aus fehlerhafter Beratung, Planung oder Dienstleistung entstehen.</p>
+        </div>
+        <div class="leistung-card reveal">
+          <div class="l-num">03</div>
+          <h3 class="l-name">Gewerbliche Sachversicherung</h3>
+          <div class="l-line"></div>
+          <p class="l-desc">Schutz für Ihre Betriebseinrichtung, Maschinen, Waren und Vorräte — gegen Feuer, Leitungswasser, Sturm, Einbruchdiebstahl und weitere Gefahren. Auf Wunsch als All-Risk-Deckung oder Inhaltsversicherung.</p>
+        </div>
+        <div class="leistung-card reveal">
+          <div class="l-num">04</div>
+          <h3 class="l-name">Gebäudeversicherung für Gewerbeobjekte</h3>
+          <div class="l-line"></div>
+          <p class="l-desc">Umfassender Schutz für betrieblich genutzte Immobilien — von der Produktionshalle bis zum Bürogebäude. Inklusive Elementarschadenabsicherung und Mietausfalldeckung.</p>
+        </div>
+        <div class="leistung-card reveal">
+          <div class="l-num">05</div>
+          <h3 class="l-name">Technische Versicherungen</h3>
+          <div class="l-line"></div>
+          <p class="l-desc">Maschinenversicherung, Elektronikversicherung, Montageversicherung und Bauleistungsversicherung — individuell auf Ihren Maschinenpark und Ihre Projekte zugeschnitten.</p>
+        </div>
+        <div class="leistung-card reveal">
+          <div class="l-num">06</div>
+          <h3 class="l-name">Betriebsunterbrechungsversicherung</h3>
+          <div class="l-line"></div>
+          <p class="l-desc">Absicherung des entgangenen Betriebsergebnisses bei Unterbrechung Ihrer Geschäftstätigkeit durch versicherte Sachschäden. Existenzsicherung für den Ernstfall.</p>
+        </div>
+        <div class="leistung-card reveal">
+          <div class="l-num">07</div>
+          <h3 class="l-name">Cyber-Versicherung</h3>
+          <div class="l-line"></div>
+          <p class="l-desc">Schutz gegen die finanziellen Folgen von Cyberangriffen, Datenverlust, Datenschutzverletzungen und IT-Ausfällen. Inklusive Krisenmanagement, forensischer Analyse und Haftpflichtkomponente.</p>
+        </div>
+        <div class="leistung-card reveal">
+          <div class="l-num">08</div>
+          <h3 class="l-name">Transportversicherung</h3>
+          <div class="l-line"></div>
+          <p class="l-desc">Absicherung Ihrer Waren und Güter auf dem Transportweg — national und international. Für Speditionen, Handelsunternehmen und produzierende Betriebe.</p>
+        </div>
+        <div class="leistung-card reveal">
+          <div class="l-num">09</div>
+          <h3 class="l-name">Directors & Officers (D&O) Versicherung</h3>
+          <div class="l-line"></div>
+          <p class="l-desc">Persönliche Haftungsabsicherung für Geschäftsführer, Vorstände und Aufsichtsräte. Schutz des Privatvermögens bei Inanspruchnahme wegen Managementfehlern.</p>
+        </div>
+        <div class="leistung-card reveal">
+          <div class="l-num">10</div>
+          <h3 class="l-name">Firmenrechtsschutzversicherung</h3>
+          <div class="l-line"></div>
+          <p class="l-desc">Rechtliche Absicherung für Ihr Unternehmen bei arbeitsrechtlichen, vertragsrechtlichen oder steuerrechtlichen Auseinandersetzungen.</p>
+        </div>
+        <div class="leistung-card reveal">
+          <div class="l-num">11</div>
+          <h3 class="l-name">Betriebliche Altersversorgung (bAV)</h3>
+          <div class="l-line"></div>
+          <p class="l-desc">Konzeption und Umsetzung effizienter Versorgungslösungen für Ihre Mitarbeiter — unter Berücksichtigung steuerlicher Vorteile und arbeitsrechtlicher Anforderungen.</p>
+        </div>
+        <div class="leistung-card reveal">
+          <div class="l-num">12</div>
+          <h3 class="l-name">Flottenversicherung & Fuhrparkmanagement</h3>
+          <div class="l-line"></div>
+          <p class="l-desc">Wirtschaftliche Absicherung Ihres Fahrzeugbestands — vom einzelnen Dienstwagen bis zur gesamten Nutzfahrzeugflotte. Inklusive Schadenmanagement und Rahmenvertragskonditionen.</p>
+        </div>
+        <div class="leistung-card reveal">
+          <div class="l-num">13</div>
+          <h3 class="l-name">Betriebliche Krankenversicherung (bKV)</h3>
+          <div class="l-line"></div>
+          <p class="l-desc">Attraktive Zusatzleistung für Ihre Mitarbeiter: Die betriebliche Krankenversicherung ergänzt die gesetzliche Absicherung und stärkt Ihre Position als Arbeitgeber. Individuell gestaltbar, steuerlich begünstigt und ein wirksames Instrument zur Mitarbeiterbindung.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- BRANCHEN -->
+  <section class="section-branchen">
+    <div class="inner">
+      <p class="section-label reveal">Branchen</p>
+      <h2 class="section-title reveal">Branchenexpertise</h2>
+      <p class="section-text reveal">Wir betreuen Unternehmen aus unterschiedlichsten Branchen und verstehen die spezifischen Risiken, die mit Ihrer Geschäftstätigkeit verbunden sind. Zu unseren Schwerpunkten gehören unter anderem:</p>
+      <div class="branchen-grid">
+        <div class="branche-item reveal">Handwerk & Baugewerbe</div>
+        <div class="branche-item reveal">Handel & E-Commerce</div>
+        <div class="branche-item reveal">Produktion & Industrie</div>
+        <div class="branche-item reveal">IT & Technologie</div>
+        <div class="branche-item reveal">Gesundheitswesen & Pflege</div>
+        <div class="branche-item reveal">Gastronomie & Hotellerie</div>
+        <div class="branche-item reveal">Immobilienwirtschaft</div>
+        <div class="branche-item reveal">Freiberufler & Beratung</div>
+        <div class="branche-item reveal">Transport & Logistik</div>
+        <div class="branche-item reveal">Startups & Gründer</div>
+      </div>
+      <p class="branchen-note reveal">Ihre Branche ist nicht aufgeführt? Sprechen Sie uns an — wir entwickeln für jedes Geschäftsmodell eine passende Lösung.</p>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="section-cta">
+    <div class="cta-inner">
+      <div>
+        <h2 class="cta-title reveal">Lassen Sie uns über Ihren Versicherungsschutz sprechen.</h2>
+        <p class="cta-text reveal">Vereinbaren Sie ein unverbindliches Erstgespräch. Wir nehmen uns die Zeit, Ihre Situation zu verstehen — und liefern Lösungen, die zu Ihrem Unternehmen passen.</p>
+        <a href="#" class="btn-dark reveal" onclick="openModal(); return false;">Beratung vereinbaren</a>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="footer-grid">
+      <div><div class="footer-brand">Marco Costa<br>Versicherungsmakler</div><p class="footer-sub">Präzise. Diskret. Auf Augenhöhe.</p></div>
+      <div><div class="footer-col-title">Standort</div><ul class="footer-col-list"><li><a href="https://www.google.com/maps/dir/?api=1&destination=Poststraße+60,+41516+Grevenbroich" target="_blank" rel="noopener">Poststr. 60<br>41516 Grevenbroich</a></li></ul></div>
+      <div><div class="footer-col-title">Kontakt</div><ul class="footer-col-list"><li><a href="mailto:info@marco-costa.de">info@marco-costa.de</a></li><li><a href="tel:+49218168717">02181-68717</a></li></ul></div>
+      <div><div class="footer-col-title">Info</div><ul class="footer-col-list"><li><a href="/#about">Über uns</a></li><li><a href="/impressum">Impressum</a></li><li><a href="/datenschutz">Datenschutz</a></li></ul></div>
+    </div>
+    <div class="footer-bottom">
+      <span class="footer-copy">© 2025 Marco Costa Versicherungsmakler. Alle Rechte vorbehalten.</span>
+      <span class="footer-copy">Versicherungsmakler (§ 34d GewO)</span>
+    </div>
+  </footer>
+  </div><!-- /#fp-wrap -->
+
+  <div class="modal-backdrop" id="contactModal" onclick="closeModalOnBackdrop(event)">
+    <div class="modal">
+      <button class="modal-close" onclick="closeModal()" aria-label="Schließen">×</button>
+      <h2 class="modal-title">Beratung vereinbaren</h2>
+      <p class="modal-sub">Hinterlassen Sie uns kurz Ihre Kontaktdaten<br>– wir melden uns zeitnah persönlich bei Ihnen.</p>
+      <form id="modalContactForm">
+        <input type="hidden" name="_subject" value="Neue Kontaktanfrage – Marco Costa Versicherungsmakler" />
+        <input type="hidden" name="_captcha" value="false" />
+        <div class="form-row">
+          <div class="form-group"><label class="form-label">Vorname <span>(erforderlich)</span></label><input type="text" name="Vorname" class="form-input" placeholder="Max" required /></div>
+          <div class="form-group"><label class="form-label">Nachname <span>(erforderlich)</span></label><input type="text" name="Nachname" class="form-input" placeholder="Mustermann" required /></div>
+        </div>
+        <div class="form-group full"><label class="form-label">E-Mail-Adresse <span>(erforderlich)</span></label><input type="email" name="E-Mail" class="form-input" placeholder="max@beispiel.de" required /></div>
+        <div class="form-group full"><label class="form-label">Telefonnummer <span>(erforderlich)</span></label><input type="tel" name="Telefon" class="form-input" placeholder="+49 211 123456" required /></div>
+        <div class="form-group full"><label class="form-label">Nachricht <span>(erforderlich)</span></label><textarea name="Nachricht" class="form-textarea" placeholder="Ihre Nachricht..." required></textarea></div>
+        <button type="submit" class="btn-send">Senden</button>
+      </form>
+    </div>
+  </div>
+
+  <script>
+    if (window.location.pathname.endsWith('.html')) {
+      history.replaceState(null, '', window.location.pathname.replace(/\.html$/, ''));
+    }
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((e, i) => { if (e.isIntersecting) setTimeout(() => e.target.classList.add('visible'), i * 80) })
+    }, { threshold: 0.1 })
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el))
+    function openModal() { document.getElementById('contactModal').classList.add('open'); document.body.style.overflow = 'hidden'; }
+    function closeModal() { document.getElementById('contactModal').classList.remove('open'); document.body.style.overflow = ''; }
+    function closeModalOnBackdrop(e) { if (e.target === document.getElementById('contactModal')) closeModal(); }
+
+    const hamburger = document.getElementById('navHamburger');
+    const mobileNav = document.getElementById('mobileNav');
+    function openMobileNav() { hamburger.classList.add('open'); mobileNav.classList.add('open'); document.body.style.overflow = 'hidden'; }
+    function closeMobileNav() { hamburger.classList.remove('open'); mobileNav.classList.remove('open'); document.body.style.overflow = ''; }
+    hamburger.addEventListener('click', () => mobileNav.classList.contains('open') ? closeMobileNav() : openMobileNav());
+
+    // ── Full-page scroll engine ──────────────────────────────────────────────
+    const fpWrap     = document.getElementById('fp-wrap');
+    const fpSections = [...fpWrap.children];
+    let fpIdx = 0, fpLock = false;
+
+    function goToSection(idx) {
+      if (fpLock || idx < 0 || idx >= fpSections.length || idx === fpIdx) return;
+      fpIdx = idx;
+      let offset = 0;
+      for (let i = 0; i < idx; i++) offset += fpSections[i].offsetHeight;
+      const maxOffset = Math.max(0, Array.from(fpWrap.children).reduce((a,el) => a + el.offsetHeight, 0) - window.innerHeight);
+      if (offset > maxOffset) offset = maxOffset;
+      fpWrap.style.transform = `translateY(-${offset}px)`;
+      setTimeout(() => {
+        fpSections[idx].querySelectorAll('.reveal:not(.visible)').forEach((el, i) => {
+          setTimeout(() => el.classList.add('visible'), i * 80);
+        });
+      }, 420);
+      fpLock = true;
+      setTimeout(() => fpLock = false, 950);
+    }
+
+    // Wheel (desktop) — scroll within overflow containers, navigate at boundaries
+    window.addEventListener('wheel', e => {
+      if (e.ctrlKey) return;
+      let el = e.target;
+      while (el && el !== document.body) {
+        const oy = window.getComputedStyle(el).overflowY;
+        if ((oy === 'auto' || oy === 'scroll') && el.scrollHeight > el.clientHeight) {
+          const atTop    = el.scrollTop <= 0;
+          const atBottom = el.scrollTop >= el.scrollHeight - el.clientHeight - 2;
+          if ((e.deltaY < 0 && atTop) || (e.deltaY > 0 && atBottom)) {
+            e.preventDefault();
+            goToSection(fpIdx + (e.deltaY > 0 ? 1 : -1));
+          } else {
+            e.preventDefault();
+            el.scrollTop += e.deltaY;
+          }
+          return;
+        }
+        el = el.parentElement;
+      }
+      e.preventDefault();
+      goToSection(fpIdx + (e.deltaY > 0 ? 1 : -1));
+    }, { passive: false });
+
+    // Touch (mobile) — swipe navigation + manual scroll for overflow containers
+    let touchStartY = 0, touchLastY = 0, touchInScrollable = false, scrollableEl = null;
+    window.addEventListener('touchstart', e => {
+      touchStartY = touchLastY = e.touches[0].clientY;
+      let el = e.target; touchInScrollable = false; scrollableEl = null;
+      while (el && el !== document.body) {
+        const oy = window.getComputedStyle(el).overflowY;
+        if ((oy === 'auto' || oy === 'scroll') && el.scrollHeight > el.clientHeight) {
+          touchInScrollable = true; scrollableEl = el; break;
+        }
+        el = el.parentElement;
+      }
+    }, { passive: true });
+    window.addEventListener('touchmove', e => {
+      if (!scrollableEl) return;
+      const d = touchLastY - e.touches[0].clientY;
+      touchLastY = e.touches[0].clientY;
+      scrollableEl.scrollTop += d;
+    }, { passive: true });
+    window.addEventListener('touchend', e => {
+      if (mobileNav.classList.contains('open')) return;
+      const delta = touchStartY - e.changedTouches[0].clientY;
+      if (Math.abs(delta) < 50) return;
+      if (touchInScrollable && scrollableEl) {
+        if (delta < 0 && scrollableEl.scrollTop <= 0) { goToSection(fpIdx - 1); return; }
+        const atBottom = scrollableEl.scrollTop >= scrollableEl.scrollHeight - scrollableEl.clientHeight - 2;
+        if (delta > 0 && atBottom) { goToSection(fpIdx + 1); return; }
+        return;
+      }
+      goToSection(fpIdx + (delta > 0 ? 1 : -1));
+    }, { passive: true });
+
+    // Keyboard
+    window.addEventListener('keydown', e => {
+      if (e.key === 'Escape') { closeModal(); closeMobileNav(); return; }
+      if (e.target.matches('input, textarea, button, select')) return;
+      if (e.key === 'ArrowDown' || e.key === 'PageDown') { e.preventDefault(); goToSection(fpIdx + 1); }
+      if (e.key === 'ArrowUp'   || e.key === 'PageUp')   { e.preventDefault(); goToSection(fpIdx - 1); }
+    });
+
+    // Intercept internal anchor links
+    document.querySelectorAll('a[href^="#"]').forEach(link => {
+      link.addEventListener('click', e => {
+        const hash = link.getAttribute('href');
+        if (hash === '#') return;
+        const target = document.querySelector(hash);
+        if (!target) return;
+        const idx = fpSections.indexOf(target);
+        if (idx !== -1) { e.preventDefault(); goToSection(idx); }
+      });
+    });
+
+    const SUCCESS_HTML = `<div style="padding:32px 0; text-align:center;">
+      <p style="font-family:var(--serif); font-size:26px; color:var(--text); margin-bottom:12px;">Vielen Dank!</p>
+      <p style="font-family:var(--sans); font-size:16px; color:var(--muted); font-weight:300; line-height:1.7;">Ihre Nachricht wurde erfolgreich gesendet.<br>Wir melden uns zeitnah bei Ihnen.</p>
+    </div>`;
+
+    document.getElementById('modalContactForm').addEventListener('submit', async function(e) {
+      e.preventDefault();
+      const btn = this.querySelector('[type=submit]');
+      btn.textContent = 'Wird gesendet…';
+      btn.disabled = true;
+      try {
+        const res = await fetch('https://formsubmit.co/ajax/info@marco-costa.de', {
+          method: 'POST',
+          headers: { 'Accept': 'application/json' },
+          body: new FormData(this)
+        });
+        const data = await res.json();
+        if (data.success === 'true' || data.success === true) {
+          this.innerHTML = SUCCESS_HTML;
+        } else { throw new Error(data.message || 'unknown'); }
+      } catch(err) {
+        btn.textContent = 'Senden';
+        btn.disabled = false;
+        const msg = err.message && err.message.includes('Activation')
+          ? 'Das Formular muss einmalig aktiviert werden. Bitte prüfen Sie das Postfach info@marco-costa.de und klicken Sie den Aktivierungs-Link von Formsubmit.co.'
+          : 'Etwas ist schiefgelaufen. Bitte schreiben Sie uns direkt an info@marco-costa.de';
+        alert(msg);
+      }
+    });
+  </script>
+
+  <!-- Cookie Consent Banner -->
+  <div class="cc-banner" id="cc-banner" hidden role="dialog" aria-labelledby="cc-title" aria-describedby="cc-desc">
+    <h2 id="cc-title">Cookie-Einstellungen</h2>
+    <p id="cc-desc">Diese Website verwendet Cookies und ähnliche Technologien. Einige sind technisch notwendig, andere helfen uns, die Website zu verbessern. Weitere Informationen finden Sie in unserer <a href="/datenschutz">Datenschutzerklärung</a> und im <a href="/impressum">Impressum</a>.</p>
+    <div class="cc-buttons">
+      <button type="button" class="cc-btn" data-cc-action="reject">Alle ablehnen</button>
+      <button type="button" class="cc-btn" data-cc-action="settings">Einstellungen</button>
+      <button type="button" class="cc-btn" data-cc-action="accept">Alle akzeptieren</button>
+    </div>
+  </div>
+
+  <div class="cc-modal-overlay" id="cc-modal-overlay" hidden role="dialog" aria-modal="true" aria-labelledby="cc-modal-title">
+    <div class="cc-modal">
+      <h2 id="cc-modal-title">Datenschutz-Einstellungen</h2>
+      <p>Wir respektieren Ihre Privatsphäre. Sie entscheiden, welche Kategorien von Cookies Sie zulassen möchten. Notwendige Cookies können nicht deaktiviert werden.</p>
+      <div class="cc-category">
+        <div class="cc-category-head">
+          <h3 class="cc-category-title">Notwendig</h3>
+          <label class="cc-toggle"><input type="checkbox" data-cc-category="necessary" checked disabled><span class="cc-slider"></span></label>
+        </div>
+        <p class="cc-category-desc">Erforderlich für den sicheren Betrieb der Website. Speichert z. B. Ihre Cookie-Einstellungen. Rechtsgrundlage: § 25 Abs. 2 Nr. 2 TDDDG i.V.m. Art. 6 Abs. 1 lit. f DSGVO.</p>
+        <details class="cc-category-details">
+          <summary>Details anzeigen</summary>
+          <table><thead><tr><th>Name</th><th>Anbieter</th><th>Zweck</th><th>Speicherdauer</th></tr></thead>
+          <tbody><tr><td>cc_consent</td><td>marco-costa.de</td><td>Speichert die Cookie-Einwilligung</td><td>12 Monate</td></tr></tbody></table>
+        </details>
+      </div>
+      <div class="cc-category">
+        <div class="cc-category-head">
+          <h3 class="cc-category-title">Funktional</h3>
+          <label class="cc-toggle"><input type="checkbox" data-cc-category="functional"><span class="cc-slider"></span></label>
+        </div>
+        <p class="cc-category-desc">Ermöglichen erweiterte Funktionen wie das Einbinden von Karten Dritter. Rechtsgrundlage: § 25 Abs. 1 TDDDG, Art. 6 Abs. 1 lit. a DSGVO.</p>
+        <details class="cc-category-details">
+          <summary>Details anzeigen</summary>
+          <table><thead><tr><th>Dienst</th><th>Anbieter</th><th>Zweck</th><th>Datentransfer</th></tr></thead>
+          <tbody><tr><td>Google Maps</td><td>Google Ireland Ltd., Dublin</td><td>Einbettung des Standorts</td><td>USA (ggf. Drittland)</td></tr></tbody></table>
+        </details>
+      </div>
+      <div class="cc-category">
+        <div class="cc-category-head">
+          <h3 class="cc-category-title">Statistik</h3>
+          <label class="cc-toggle"><input type="checkbox" data-cc-category="statistics"><span class="cc-slider"></span></label>
+        </div>
+        <p class="cc-category-desc">Helfen uns zu verstehen, wie Besucher die Website nutzen. Daten werden anonymisiert ausgewertet. Rechtsgrundlage: § 25 Abs. 1 TDDDG, Art. 6 Abs. 1 lit. a DSGVO.</p>
+        <details class="cc-category-details">
+          <summary>Details anzeigen</summary>
+          <table><thead><tr><th>Dienst</th><th>Anbieter</th><th>Zweck</th><th>Speicherdauer</th></tr></thead>
+          <tbody><tr><td colspan="4" style="color:#999;font-style:italic;">Derzeit keine Statistik-Dienste aktiv.</td></tr></tbody></table>
+        </details>
+      </div>
+      <div class="cc-category">
+        <div class="cc-category-head">
+          <h3 class="cc-category-title">Marketing</h3>
+          <label class="cc-toggle"><input type="checkbox" data-cc-category="marketing"><span class="cc-slider"></span></label>
+        </div>
+        <p class="cc-category-desc">Werden verwendet, um Werbung zielgerichtet auszuspielen. Rechtsgrundlage: § 25 Abs. 1 TDDDG, Art. 6 Abs. 1 lit. a DSGVO.</p>
+        <details class="cc-category-details">
+          <summary>Details anzeigen</summary>
+          <table><thead><tr><th>Dienst</th><th>Anbieter</th><th>Zweck</th><th>Datentransfer</th></tr></thead>
+          <tbody><tr><td colspan="4" style="color:#999;font-style:italic;">Derzeit keine Marketing-Cookies aktiv.</td></tr></tbody></table>
+        </details>
+      </div>
+      <p style="font-size:12px;color:#6b6f74;font-family:'Lato',sans-serif;font-weight:300;margin-top:20px;">Sie können Ihre Einwilligung jederzeit über „Cookie-Einstellungen" unten links widerrufen.</p>
+      <div class="cc-modal-buttons">
+        <button type="button" class="cc-btn" data-cc-action="reject">Alle ablehnen</button>
+        <button type="button" class="cc-btn" data-cc-action="save">Auswahl speichern</button>
+        <button type="button" class="cc-btn" data-cc-action="accept">Alle akzeptieren</button>
+      </div>
+    </div>
+  </div>
+
+  <button type="button" class="cc-revoke" id="cc-revoke" hidden>Cookie-Einstellungen</button>
+  <script src="/cookie-consent.js"></script>
+
+  <!-- Login Modal -->
+  <div class="lm-backdrop" id="loginModal">
+    <div class="lm-box">
+      <button class="lm-close" id="loginModalClose" aria-label="Schließen">×</button>
+      <h2 class="lm-title">Kundenportal</h2>
+
+      <div class="lm-section">
+        <p class="lm-label">Bereits registriert? Jetzt einloggen</p>
+        <a href="https://meine-finanzen.digital/login" target="_blank" rel="noopener" class="lm-login-btn">Zum Login</a>
+      </div>
+
+      <hr class="lm-divider" />
+
+      <div class="lm-section">
+        <p class="lm-label">Noch kein Konto? Jetzt registrieren</p>
+        <div class="lm-reg-row">
+          <a href="https://meine-finanzen.digital/anmelden/f/41f3bdb7-f872-11f0-9995-960000d203a8" target="_blank" rel="noopener" class="lm-reg-btn">Firmenkunden</a>
+          <a href="https://meine-finanzen.digital/anmelden/m/4203efd0-f872-11f0-9995-960000d203a8" target="_blank" rel="noopener" class="lm-reg-btn">Privatkunden</a>
+        </div>
+      </div>
+
+      <hr class="lm-divider" />
+
+      <div class="lm-section">
+        <p class="lm-label">Finanzmanager-App</p>
+        <div class="lm-badge-row">
+          <a href="https://play.google.com/store/apps/details?id=de.demv.finanzmanager.app" target="_blank" rel="noopener">
+            <img src="https://mvp.professional.works/images/extlogin/playstore.svg" alt="Finanzmanager Playstore Badge" style="height:40px;width:135px;" />
+          </a>
+          <a href="https://apps.apple.com/app/id6648793330" target="_blank" rel="noopener">
+            <img src="https://mvp.professional.works/images/extlogin/appstore.svg" alt="Finanzmanager Appstore Badge" style="height:40px;width:120px;" />
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script src="/login-modal.js"></script>
+</body>
+</html>
