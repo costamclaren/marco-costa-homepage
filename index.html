@@ -502,6 +502,8 @@
       const maxOffset = Math.max(0, Array.from(fpWrap.children).reduce((a,el) => a + el.offsetHeight, 0) - window.innerHeight);
       if (offset > maxOffset) offset = maxOffset;
       fpWrap.style.transform = `translateY(-${offset}px)`;
+      // Reset inner scroll of target section so it always starts at top
+      fpSections[idx].scrollTop = 0;
       // Stagger-reveal content of incoming section at transition midpoint
       setTimeout(() => {
         fpSections[idx].querySelectorAll('.reveal:not(.visible)').forEach((el, i) => {
