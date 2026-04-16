@@ -251,7 +251,7 @@
       <li><a href="#" class="active">Startseite</a></li>
       <li><a href="/gewerbe">Gewerbe & Industriekunden</a></li>
       <li><a href="/privatkunden">Privatkunden</a></li>
-      <li><a href="#about">Über uns</a></li>
+      <li><a href="#" data-goto="about">Über uns</a></li>
       <li><a href="#" onclick="openContactInfoModal(); return false;">Kontakt</a></li>
     </ul>
     <button class="nav-login">Login</button>
@@ -264,7 +264,7 @@
     <a href="#" class="mobile-nav-link" onclick="closeMobileNav()">Startseite</a>
     <a href="/gewerbe" class="mobile-nav-link" onclick="closeMobileNav()">Gewerbe & Industriekunden</a>
     <a href="/privatkunden" class="mobile-nav-link" onclick="closeMobileNav()">Privatkunden</a>
-    <a href="#about" class="mobile-nav-link" onclick="closeMobileNav()">Über uns</a>
+    <a href="#" class="mobile-nav-link" data-goto="about" onclick="closeMobileNav()">Über uns</a>
     <a href="#" class="mobile-nav-link" onclick="closeMobileNav(); setTimeout(openContactInfoModal, 200);">Kontakt</a>
     <button class="mobile-nav-login" onclick="closeMobileNav(); setTimeout(() => document.querySelector('.nav-login').click(), 200);">Login</button>
   </div>
@@ -282,7 +282,7 @@
       </div>
       <div class="hero-btns">
         <a href="#" class="btn-white" onclick="openModal(); return false;">Beratung vereinbaren</a>
-        <a href="#leistungen" class="btn-outline">Unsere Leistungen</a>
+        <a href="#" class="btn-outline" data-goto="leistungen">Unsere Leistungen</a>
       </div>
     </div>
     <div class="hero-scroll"><span>Scroll</span><div class="scroll-bar"></div></div>
@@ -360,7 +360,7 @@
       <div><div class="footer-brand">Marco Costa<br>Versicherungsmakler</div><p class="footer-sub">Präzise. Diskret. Auf Augenhöhe.</p></div>
       <div><div class="footer-col-title">Standort</div><ul class="footer-col-list"><li><a href="https://www.google.com/maps/dir/?api=1&destination=Poststraße+60,+41516+Grevenbroich" target="_blank" rel="noopener">Poststr. 60<br>41516 Grevenbroich</a></li></ul></div>
       <div><div class="footer-col-title">Kontakt</div><ul class="footer-col-list"><li><a href="mailto:info@marco-costa.de">info@marco-costa.de</a></li><li><a href="tel:+49218168717">02181-68717</a></li></ul></div>
-      <div><div class="footer-col-title">Info</div><ul class="footer-col-list"><li><a href="#about">Über uns</a></li><li><a href="/impressum">Impressum</a></li><li><a href="/datenschutz">Datenschutz</a></li></ul></div>
+      <div><div class="footer-col-title">Info</div><ul class="footer-col-list"><li><a href="#" data-goto="about">Über uns</a></li><li><a href="/impressum">Impressum</a></li><li><a href="/datenschutz">Datenschutz</a></li></ul></div>
     </div>
     <div class="footer-bottom">
       <span class="footer-copy">© 2025 Marco Costa Versicherungsmakler. Alle Rechte vorbehalten.</span>
@@ -578,15 +578,17 @@
       if (e.key === 'ArrowUp'   || e.key === 'PageUp')   { e.preventDefault(); goToSection(fpIdx - 1); }
     });
 
-    // Intercept internal anchor links (#leistungen, #about, #kontakt …)
-    document.querySelectorAll('a[href^="#"]').forEach(link => {
+    // Navigate to section via data-goto attribute (avoids hash/hashchange issues)
+    document.querySelectorAll('[data-goto]').forEach(link => {
       link.addEventListener('click', e => {
-        const hash = link.getAttribute('href');
-        if (hash === '#') return;
-        const target = document.querySelector(hash);
+        e.preventDefault();
+        const target = document.getElementById(link.dataset.goto);
         if (!target) return;
         const idx = fpSections.indexOf(target);
-        if (idx !== -1) { e.preventDefault(); fpLock = false; goToSection(idx); }
+        if (idx === -1) return;
+        fpLock = false;
+        if (idx === fpIdx) { fpSections[idx].scrollTop = 0; return; }
+        goToSection(idx);
       });
     });
   </script>
