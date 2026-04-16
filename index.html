@@ -121,6 +121,16 @@
     .modal-sub { font-family: var(--sans); font-size: 15px; color: var(--muted); font-weight: 300; margin-bottom: 36px; line-height: 1.6; }
     @media (max-width: 640px) { .modal { padding: 40px 24px; } }
 
+    /* KONTAKT-INFO-MODAL */
+    .ci-items { display: flex; flex-direction: column; margin-bottom: 36px; }
+    .ci-item { display: flex; flex-direction: column; padding: 20px 0; border-bottom: 1px solid var(--border); }
+    .ci-item:first-child { padding-top: 0; }
+    .ci-label { font-family: var(--sans); font-size: 10px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); margin-bottom: 8px; }
+    .ci-value { font-family: var(--sans); font-size: 16px; font-weight: 300; color: var(--text); line-height: 1.6; text-decoration: none; transition: color 0.2s; }
+    .ci-value:hover { color: var(--gold); }
+    .btn-ci-form { width: 100%; font-family: var(--sans); font-size: 12px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; padding: 15px 36px; background: var(--anthrazit); color: #fff; border: none; cursor: pointer; transition: background 0.2s; }
+    .btn-ci-form:hover { background: #3a3f45; }
+
     /* ANIMATIONEN */
     @keyframes fadeUp { to { opacity: 1; transform: translateY(0); } }
     @keyframes fadeIn { to { opacity: 1; } }
@@ -158,7 +168,7 @@
       <li><a href="gewerbe.html">Gewerbe & Industriekunden</a></li>
       <li><a href="privatkunden.html">Privatkunden</a></li>
       <li><a href="#about">Über uns</a></li>
-      <li><a href="#kontakt">Kontakt</a></li>
+      <li><a href="#" onclick="openContactInfoModal(); return false;">Kontakt</a></li>
     </ul>
     <button class="nav-login">Login</button>
   </nav>
@@ -184,7 +194,7 @@
   <section class="section-services" id="leistungen">
     <div class="inner">
       <p class="section-label reveal">Unsere Leistungen</p>
-      <h2 class="section-title reveal">Maßgeschneiderter Versicherungsschutz für jeden Bedarf</h2>
+      <h2 class="section-title reveal">Maßgeschneiderter Versicherungsschutz<br>für Ihren Bedarf</h2>
       <div class="services-grid">
         <div class="service-card reveal"><div class="s-num">01</div><h3 class="s-name">Gewerbe & Industrie</h3><div class="s-line"></div><p class="s-desc">Umfassende Absicherung für Unternehmen jeder Größe – von der Betriebshaftpflicht bis zur Cyber-Versicherung. Individuell. Präzise. Verlässlich.</p></div>
         <div class="service-card reveal"><div class="s-num">02</div><h3 class="s-name">Privatkunden</h3><div class="s-line"></div><p class="s-desc">Persönliche Beratung für anspruchsvolle Privatpersonen. Wir analysieren Ihren Bedarf und empfehlen den optimalen Schutz – diskret und auf Augenhöhe.</p></div>
@@ -244,6 +254,30 @@
     </div>
   </footer>
 
+  <!-- Kontakt-Info-Modal -->
+  <div class="modal-backdrop" id="contactInfoModal" onclick="if(event.target===this)closeContactInfoModal()">
+    <div class="modal">
+      <button class="modal-close" onclick="closeContactInfoModal()" aria-label="Schließen">×</button>
+      <h2 class="modal-title">Kontakt</h2>
+      <p class="modal-sub">Wir sind für Sie erreichbar – persönlich, telefonisch oder per E-Mail.</p>
+      <div class="ci-items">
+        <div class="ci-item">
+          <span class="ci-label">Ihr Weg zu uns</span>
+          <a href="https://www.google.com/maps/dir/?api=1&destination=Poststraße+60,+41516+Grevenbroich" target="_blank" rel="noopener" class="ci-value">Poststr. 60, 41516 Grevenbroich</a>
+        </div>
+        <div class="ci-item">
+          <span class="ci-label">Telefon</span>
+          <a href="tel:+49218168717" class="ci-value">02181-68717</a>
+        </div>
+        <div class="ci-item">
+          <span class="ci-label">E-Mail</span>
+          <a href="mailto:info@marco-costa.de" class="ci-value">info@marco-costa.de</a>
+        </div>
+      </div>
+      <button class="btn-ci-form" onclick="closeContactInfoModal(); openModal();">Kontaktformular öffnen</button>
+    </div>
+  </div>
+
   <div class="modal-backdrop" id="contactModal" onclick="closeModalOnBackdrop(event)">
     <div class="modal">
       <button class="modal-close" onclick="closeModal()" aria-label="Schließen">×</button>
@@ -272,6 +306,14 @@
     window.addEventListener('scroll', () => {
       document.getElementById('navbar').style.background = window.scrollY > 50 ? 'rgba(242,241,239,0.99)' : 'rgba(242,241,239,0.96)'
     })
+    function openContactInfoModal() {
+      document.getElementById('contactInfoModal').classList.add('open');
+      document.body.style.overflow = 'hidden';
+    }
+    function closeContactInfoModal() {
+      document.getElementById('contactInfoModal').classList.remove('open');
+      document.body.style.overflow = '';
+    }
     function openModal() {
       document.getElementById('contactModal').classList.add('open');
       document.body.style.overflow = 'hidden';
@@ -281,7 +323,7 @@
       document.body.style.overflow = '';
     }
     function closeModalOnBackdrop(e) { if (e.target === document.getElementById('contactModal')) closeModal(); }
-    document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); })
+    document.addEventListener('keydown', e => { if (e.key === 'Escape') { closeModal(); closeContactInfoModal(); } })
 
     async function submitForm(formEl, btnEl, successHtml) {
       btnEl.textContent = 'Wird gesendet…';
