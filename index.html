@@ -99,8 +99,9 @@
     .about-title { font-family: var(--serif); font-size: clamp(26px, 2.8vw, 40px); font-weight: 400; color: #fff; line-height: 1.2; margin-bottom: 28px; }
     .about-text { font-family: var(--sans); font-size: 17px; line-height: 1.85; color: rgba(255,255,255,0.6); font-weight: 300; margin-bottom: 44px; }
     .about-tiles { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; }
-    .about-tile { border: 1px solid rgba(255,255,255,0.12); padding: 32px 28px; display: flex; flex-direction: column; gap: 12px; }
-    .tile-value { font-family: var(--serif); font-size: clamp(22px, 2.2vw, 34px); font-weight: 400; color: #fff; line-height: 1.2; }
+    .about-tile { border: 1px solid rgba(255,255,255,0.12); padding: 32px 28px; display: flex; flex-direction: column; gap: 12px; transition: border-color 0.25s, background 0.25s; cursor: default; }
+    .about-tile:hover { border-color: var(--gold); background: rgba(255,255,255,0.05); }
+    .tile-value { font-family: var(--serif); font-size: clamp(18px, 1.55vw, 24px); font-weight: 400; color: #fff; line-height: 1.2; white-space: nowrap; }
     .tile-label { font-family: var(--sans); font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(255,255,255,0.4); font-weight: 700; line-height: 1.5; }
 
     /* KONTAKT */
@@ -206,8 +207,8 @@
       .section-services { padding: 72px 20px 56px; height: 100dvh; }
       .section-about { padding: 72px 20px 56px; height: 100dvh; overflow-y: auto; overscroll-behavior-y: contain; }
       .about-tiles { gap: 2px; }
-      .about-tile { padding: 22px 18px; gap: 8px; }
-      .tile-value { font-size: 20px; }
+      .about-tile { padding: 18px 14px; gap: 6px; }
+      .tile-value { font-size: 16px; white-space: normal; }
       .tile-label { font-size: 9px; }
       .section-contact { padding: 72px 20px 56px; height: 100dvh; overflow-y: auto; overscroll-behavior-y: contain; }
       footer { padding: 56px 20px 36px; }
@@ -304,7 +305,7 @@
         <p class="about-label reveal">Über uns</p>
         <h2 class="about-title reveal">Objektive Beratung.<br>Höchste Expertise.</h2>
         <p class="about-label-sub reveal" style="font-family:var(--serif);font-size:clamp(17px,1.8vw,22px);font-weight:400;font-style:italic;color:rgba(255,255,255,0.85);margin-bottom:28px;">Spezialisiert. Vernetzt. Ganzheitlich.</p>
-        <p class="about-text reveal">Gewachsen in unterschiedlichen Fachbereichen und Sparten, bringen wir ausgewiesene Expertise für die Themen mit, die in der Beratung tatsächlich Tiefe verlangen – von komplexen gewerblichen Deckungskonzepten bis zu anspruchsvollen privaten Vorsorgelösungen.</p>
+        <p class="about-text reveal">Gewachsen in unterschiedlichen Fachbereichen und Sparten,<br>bringen wir ausgewiesene Expertise für die Themen mit, die in der Beratung tatsächlich Tiefe verlangen<br>– von komplexen gewerblichen Deckungskonzepten bis zu anspruchsvollen privaten Vorsorgelösungen.</p>
         <p class="about-text reveal" style="margin-top:18px;">Was unsere Arbeit auszeichnet, ist das Netzwerk dahinter: spezialisierte Underwriter für außergewöhnliche Risiken, Softwarepartner für die Digitalisierung unternehmerischer Prozesse und ausgewählte Experten aus angrenzenden Fachgebieten. Wir beraten nicht nur – wir verbinden die richtigen Kompetenzen zur passenden Lösung.</p>
         <p class="about-text reveal" style="margin-top:18px;font-style:italic;color:rgba(255,255,255,0.5);">Ausschließlich Ihren Interessen verpflichtet. Mit dem Anspruch, mehr zu liefern als der Markt erwartet.</p>
         <a href="#" class="btn-white reveal" onclick="openModal(); return false;">Gespräch vereinbaren</a>
@@ -323,7 +324,7 @@
           <div class="tile-label">Digitale Schadenbearbeitung</div>
         </div>
         <div class="about-tile reveal">
-          <div class="tile-value">persönlich</div>
+          <div class="tile-value">Persönlich</div>
           <div class="tile-label">Ein fester Ansprechpartner</div>
         </div>
       </div>
