@@ -74,22 +74,25 @@
   margin: 28px 0;
 }
 
-/* Portal login image button */
-.lm-portal-link {
+/* Portal login button */
+.lm-login-btn {
   display: block;
-  border: 1px solid rgba(45,48,53,0.14);
-  transition: border-color 0.2s, box-shadow 0.2s;
-  line-height: 0;
-}
-.lm-portal-link:hover {
-  border-color: #b89a6a;
-  box-shadow: 0 4px 16px rgba(0,0,0,0.10);
-}
-.lm-portal-link img {
+  text-align: center;
+  padding: 14px 16px;
+  font-family: 'Lato', sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  border: 1px solid #2d3035;
+  color: #2d3035;
+  background: transparent;
+  text-decoration: none;
+  transition: background 0.2s, color 0.2s;
   width: 100%;
-  height: auto;
-  display: block;
+  box-sizing: border-box;
 }
+.lm-login-btn:hover { background: #2d3035; color: #ffffff; }
 
 /* Register buttons */
 .lm-reg-row {
