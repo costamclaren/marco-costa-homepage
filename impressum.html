@@ -79,6 +79,7 @@
     }
   </style>
   <link rel="stylesheet" href="cookie-consent.css" />
+  <link rel="stylesheet" href="login-modal.css" />
 </head>
 <body>
 
@@ -256,5 +257,45 @@
 
   <button type="button" class="cc-revoke" id="cc-revoke" hidden>Cookie-Einstellungen</button>
   <script src="cookie-consent.js"></script>
+
+  <!-- Login Modal -->
+  <div class="lm-backdrop" id="loginModal">
+    <div class="lm-box">
+      <button class="lm-close" id="loginModalClose" aria-label="Schließen">×</button>
+      <h2 class="lm-title">Kundenportal</h2>
+
+      <div class="lm-section">
+        <p class="lm-label">Bereits registriert? Jetzt einloggen</p>
+        <a href="https://meine-finanzen.digital/login" target="_blank" rel="noopener" class="lm-portal-link">
+          <img src="https://mvp.professional.works/images/extlogin/webapp.jpg" alt="Online-Portal Login" />
+        </a>
+      </div>
+
+      <hr class="lm-divider" />
+
+      <div class="lm-section">
+        <p class="lm-label">Noch kein Konto? Jetzt registrieren</p>
+        <div class="lm-reg-row">
+          <a href="https://meine-finanzen.digital/anmelden/f/41f3bdb7-f872-11f0-9995-960000d203a8" target="_blank" rel="noopener" class="lm-reg-btn">Firmenkunden</a>
+          <a href="https://meine-finanzen.digital/anmelden/m/4203efd0-f872-11f0-9995-960000d203a8" target="_blank" rel="noopener" class="lm-reg-btn">Privatkunden</a>
+        </div>
+      </div>
+
+      <hr class="lm-divider" />
+
+      <div class="lm-section">
+        <p class="lm-label">Finanzmanager-App</p>
+        <div class="lm-badge-row">
+          <a href="https://play.google.com/store/apps/details?id=de.demv.finanzmanager.app" target="_blank" rel="noopener">
+            <img src="https://mvp.professional.works/images/extlogin/playstore.svg" alt="Finanzmanager Playstore Badge" style="height:40px;width:135px;" />
+          </a>
+          <a href="https://apps.apple.com/app/id6648793330" target="_blank" rel="noopener">
+            <img src="https://mvp.professional.works/images/extlogin/appstore.svg" alt="Finanzmanager Appstore Badge" style="height:40px;width:120px;" />
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script src="login-modal.js"></script>
 </body>
 </html>
