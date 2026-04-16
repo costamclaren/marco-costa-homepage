@@ -399,9 +399,26 @@
       setTimeout(() => fpLock = false, 950);
     }
 
-    // Wheel (desktop)
+    // Wheel (desktop) — scroll within overflow containers, navigate at boundaries
     window.addEventListener('wheel', e => {
       if (e.ctrlKey) return;
+      let el = e.target;
+      while (el && el !== document.body) {
+        const oy = window.getComputedStyle(el).overflowY;
+        if ((oy === 'auto' || oy === 'scroll') && el.scrollHeight > el.clientHeight) {
+          const atTop    = el.scrollTop <= 0;
+          const atBottom = el.scrollTop >= el.scrollHeight - el.clientHeight - 2;
+          if ((e.deltaY < 0 && atTop) || (e.deltaY > 0 && atBottom)) {
+            e.preventDefault();
+            goToSection(fpIdx + (e.deltaY > 0 ? 1 : -1));
+          } else {
+            e.preventDefault();
+            el.scrollTop += e.deltaY;
+          }
+          return;
+        }
+        el = el.parentElement;
+      }
       e.preventDefault();
       goToSection(fpIdx + (e.deltaY > 0 ? 1 : -1));
     }, { passive: false });
