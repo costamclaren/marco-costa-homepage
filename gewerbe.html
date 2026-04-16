@@ -22,7 +22,7 @@
     }
 
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    html { scroll-behavior: smooth; scroll-snap-type: y proximity; scroll-padding-top: 90px; }
+    html { scroll-behavior: smooth; scroll-snap-type: y mandatory; scroll-padding-top: 90px; }
     body { font-family: var(--sans); background: var(--bg); color: var(--text); -webkit-font-smoothing: antialiased; }
     a { text-decoration: none; color: inherit; }
 
@@ -65,7 +65,7 @@
     .section-intro .section-text { margin-bottom: 20px; }
 
     /* LEISTUNGEN */
-    .section-leistungen { background: var(--white); padding: 72px 56px; scroll-snap-align: start; }
+    .section-leistungen { background: var(--white); padding: 72px 56px; scroll-snap-align: start; height: 100svh; overflow-y: auto; overscroll-behavior-y: contain; }
     .section-leistungen .section-title { margin-bottom: 56px; }
     .leistungen-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; }
     .leistung-card { background: var(--bg); padding: 40px 32px; border: 1px solid rgba(45,48,53,0.07); transition: background 0.35s, border-color 0.35s; cursor: default; }
