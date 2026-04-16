@@ -395,6 +395,11 @@
   </div>
 
   <script>
+    // Keep URL clean: no /index.html, no trailing #
+    if (window.location.pathname === '/index.html') history.replaceState(null, '', '/');
+    if (window.location.hash) history.replaceState(null, '', window.location.pathname);
+    window.addEventListener('hashchange', () => history.replaceState(null, '', window.location.pathname));
+
     const observer = new IntersectionObserver((entries) => {
       entries.forEach((e, i) => { if (e.isIntersecting) setTimeout(() => e.target.classList.add('visible'), i * 80) })
     }, { threshold: 0.1 })
