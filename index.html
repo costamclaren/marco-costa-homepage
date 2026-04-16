@@ -162,13 +162,17 @@
       .about-grid, .contact-grid { grid-template-columns: 1fr; gap: 56px; }
       .footer-grid { grid-template-columns: 1fr 1fr; gap: 40px; }
     }
-    @media (max-width: 640px) {
-      nav { padding: 0 20px; height: 72px; }
-      .nav-logo { font-size: 16px; }
+    /* Hamburger ab 900px (Tablet + Mobile) */
+    @media (max-width: 900px) {
       .nav-links { display: none; }
       .nav-login { display: none; }
       .nav-hamburger { display: flex; }
-      .mobile-nav { display: flex; top: 72px; }
+      .mobile-nav { display: flex; }
+    }
+    @media (max-width: 640px) {
+      nav { padding: 0 20px; height: 72px; }
+      .nav-logo { font-size: 16px; }
+      .mobile-nav { top: 72px; }
 
       .hero { align-items: flex-start; padding-top: 112px; padding-bottom: 72px; min-height: 100svh; }
       .hero-content { padding: 0 20px; }
