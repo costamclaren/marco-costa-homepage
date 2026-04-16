@@ -98,9 +98,10 @@
     .about-label { font-family: var(--sans); font-size: 18px; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: var(--gold); margin-bottom: 20px; }
     .about-title { font-family: var(--serif); font-size: clamp(26px, 2.8vw, 40px); font-weight: 400; color: #fff; line-height: 1.2; margin-bottom: 28px; }
     .about-text { font-family: var(--sans); font-size: 17px; line-height: 1.85; color: rgba(255,255,255,0.6); font-weight: 300; margin-bottom: 44px; }
-    .stats-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; }
-    .stat-num { font-family: var(--serif); font-size: 52px; font-weight: 400; color: #fff; line-height: 1; margin-bottom: 8px; }
-    .stat-label { font-family: var(--sans); font-size: 15px; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(255,255,255,0.38); }
+    .about-tiles { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; }
+    .about-tile { border: 1px solid rgba(255,255,255,0.12); padding: 32px 28px; display: flex; flex-direction: column; gap: 12px; }
+    .tile-value { font-family: var(--serif); font-size: clamp(22px, 2.2vw, 34px); font-weight: 400; color: #fff; line-height: 1.2; }
+    .tile-label { font-family: var(--sans); font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(255,255,255,0.4); font-weight: 700; line-height: 1.5; }
 
     /* KONTAKT */
     .section-contact { background: var(--bg); padding: 90px 56px 72px; height: 100dvh; display: flex; flex-direction: column; justify-content: center; }
@@ -203,7 +204,11 @@
       .btn-white, .btn-outline { width: 100%; text-align: center; font-size: 14px; padding: 18px 36px; }
 
       .section-services { padding: 72px 20px 56px; height: 100dvh; }
-      .section-about { padding: 72px 20px 56px; height: 100dvh; }
+      .section-about { padding: 72px 20px 56px; height: 100dvh; overflow-y: auto; overscroll-behavior-y: contain; }
+      .about-tiles { gap: 2px; }
+      .about-tile { padding: 22px 18px; gap: 8px; }
+      .tile-value { font-size: 20px; }
+      .tile-label { font-size: 9px; }
       .section-contact { padding: 72px 20px 56px; height: 100dvh; overflow-y: auto; overscroll-behavior-y: contain; }
       footer { padding: 56px 20px 36px; }
 
@@ -224,9 +229,6 @@
       .form-input, .form-textarea { font-size: 15px; }
       .form-textarea { min-height: 60px; }
 
-      .stats-grid { grid-template-columns: 1fr 1fr; gap: 32px; }
-      .stat-num { font-size: 40px; }
-      .stat-label { font-size: 11px; }
 
       .form-row, .footer-grid { grid-template-columns: 1fr; }
       .footer-bottom { flex-direction: column; gap: 8px; text-align: center; padding-top: 20px; }
@@ -307,9 +309,23 @@
         <p class="about-text reveal" style="margin-top:18px;font-style:italic;color:rgba(255,255,255,0.5);">Ausschließlich Ihren Interessen verpflichtet. Mit dem Anspruch, mehr zu liefern als der Markt erwartet.</p>
         <a href="#" class="btn-white reveal" onclick="openModal(); return false;">Gespräch vereinbaren</a>
       </div>
-      <div class="stats-grid">
-        <div class="reveal"><div class="stat-num">100%</div><div class="stat-label">Ihren Interessen verpflichtet</div></div>
-        <div class="reveal"><div class="stat-num">24/7</div><div class="stat-label">Erreichbar</div></div>
+      <div class="about-tiles">
+        <div class="about-tile reveal">
+          <div class="tile-value">100 %</div>
+          <div class="tile-label">Ihren Interessen verpflichtet</div>
+        </div>
+        <div class="about-tile reveal">
+          <div class="tile-value">Rund um die Uhr</div>
+          <div class="tile-label">Für Sie erreichbar</div>
+        </div>
+        <div class="about-tile reveal">
+          <div class="tile-value">100 %</div>
+          <div class="tile-label">Digitale Schadenbearbeitung</div>
+        </div>
+        <div class="about-tile reveal">
+          <div class="tile-value">persönlich</div>
+          <div class="tile-label">Ein fester Ansprechpartner</div>
+        </div>
       </div>
     </div>
   </section>
