@@ -96,7 +96,7 @@
     .l-desc { font-family: var(--sans); font-size: 16px; line-height: 1.75; color: var(--muted); font-weight: 300; transition: color 0.35s; }
 
     /* ARBEITSWEISE */
-    .section-prozess { background: var(--anthrazit); padding: 72px 56px; height: 100dvh; overflow-y: auto; overscroll-behavior-y: contain; }
+    .section-prozess { background: var(--anthrazit); padding: 72px 56px; height: 100dvh; overflow-y: auto; overscroll-behavior-y: contain; display: flex; flex-direction: column; justify-content: center; }
     .section-prozess .section-label { color: var(--gold); }
     .section-prozess .section-title { color: #fff; margin-bottom: 72px; }
     .prozess-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 2px; }
@@ -268,14 +268,22 @@
     </div>
   </section>
 
-  <!-- INTRO + ARBEITSWEISE -->
-  <section class="section-prozess">
+  <!-- EINLEITUNG -->
+  <section class="section-intro">
     <div class="inner">
       <p class="section-label reveal">Für Privatpersonen</p>
       <h2 class="section-title reveal">Ihr persönlicher Versicherungsmakler</h2>
-      <p class="section-text reveal" style="color:rgba(255,255,255,0.65);margin-bottom:12px;">Ihre persönliche Situation ist einzigartig — Ihr Versicherungsschutz sollte es ebenfalls sein. Als zugelassener Versicherungsmakler nach § 34d GewO analysieren wir Ihren individuellen Bedarf und entwickeln ein maßgeschneidertes Schutzkonzept, das wirklich zu Ihrem Leben passt.</p>
-      <p class="section-text reveal" style="color:rgba(255,255,255,0.65);margin-bottom:44px;">Wir arbeiten ausschließlich in Ihrem Interesse, ohne Bindung an einzelne Versicherer. Diskret, kompetent und auf Augenhöhe — für Privatpersonen mit dem Anspruch auf das Beste.</p>
-      <p class="section-label reveal">Unsere Arbeitsweise</p>
+      <p class="section-text reveal">Ihre persönliche Situation ist einzigartig — Ihr Versicherungsschutz sollte es ebenfalls sein. Als zugelassener Versicherungsmakler nach § 34d GewO analysieren wir Ihren individuellen Bedarf und entwickeln ein maßgeschneidertes Schutzkonzept, das wirklich zu Ihrem Leben passt.</p>
+      <br>
+      <p class="section-text reveal">Wir arbeiten ausschließlich in Ihrem Interesse, ohne Bindung an einzelne Versicherer. Diskret, kompetent und auf Augenhöhe — für Privatpersonen mit dem Anspruch auf das Beste.</p>
+    </div>
+  </section>
+
+  <!-- ARBEITSWEISE -->
+  <section class="section-prozess">
+    <div class="inner">
+      <p class="section-label reveal">Arbeitsweise</p>
+      <h2 class="section-title reveal">Unsere Arbeitsweise</h2>
       <div class="prozess-grid">
         <div class="prozess-step reveal">
           <div class="p-num">01</div>
