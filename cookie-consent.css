@@ -216,8 +216,22 @@
 
 /* Responsive */
 @media (max-width: 640px) {
-  .cc-banner { left: 12px; right: 12px; bottom: 12px; padding: 24px 20px; }
-  .cc-btn { flex: 1 1 100%; }
+  .cc-banner {
+    left: 0;
+    right: 0;
+    bottom: 0;
+    max-width: 100%;
+    padding: 20px 16px 24px;
+    border-left: none;
+    border-right: none;
+    border-bottom: none;
+    box-shadow: 0 -4px 24px rgba(0,0,0,0.10);
+  }
+  .cc-banner h2 { font-size: 17px; margin-bottom: 8px; }
+  .cc-banner p { font-size: 13px; margin-bottom: 16px; }
+  .cc-buttons { gap: 8px; }
+  .cc-btn { flex: 1 1 calc(33% - 6px); min-width: 0; padding: 11px 8px; font-size: 10px; }
   .cc-modal { padding: 28px 20px; }
   .cc-modal-buttons .cc-btn { flex: 1 1 100%; }
+  .cc-revoke { bottom: 0; left: 0; font-size: 9px; padding: 8px 12px; opacity: 0.5; }
 }
