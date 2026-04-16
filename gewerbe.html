@@ -144,6 +144,20 @@
     .reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.7s ease, transform 0.7s ease; }
     .reveal.visible { opacity: 1; transform: translateY(0); }
 
+    /* HAMBURGER */
+    .nav-hamburger { display: none; flex-direction: column; justify-content: center; gap: 5px; background: none; border: none; cursor: pointer; padding: 8px; margin-left: 16px; }
+    .nav-hamburger span { display: block; width: 24px; height: 2px; background: var(--text); transition: transform 0.3s, opacity 0.3s; }
+    .nav-hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .nav-hamburger.open span:nth-child(2) { opacity: 0; }
+    .nav-hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+    /* MOBILE NAV */
+    .mobile-nav { display: none; position: fixed; top: 90px; left: 0; right: 0; background: rgba(242,241,239,0.99); backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); flex-direction: column; padding: 24px 28px; gap: 4px; z-index: 99; transform: translateY(-8px); opacity: 0; transition: transform 0.25s ease, opacity 0.25s ease; pointer-events: none; }
+    .mobile-nav.open { transform: translateY(0); opacity: 1; pointer-events: all; }
+    .mobile-nav-link { font-family: var(--sans); font-size: 17px; font-weight: 400; color: var(--text); letter-spacing: 0.03em; padding: 14px 0; border-bottom: 1px solid var(--border); }
+    .mobile-nav-link:last-of-type { border-bottom: none; }
+    .mobile-nav-login { margin-top: 16px; font-family: var(--sans); font-size: 11px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; padding: 14px; background: var(--anthrazit); color: #fff; border: none; cursor: pointer; width: 100%; }
+
     /* RESPONSIVE */
     @media (max-width: 1024px) {
       .leistungen-grid { grid-template-columns: 1fr 1fr; }
@@ -152,11 +166,36 @@
       .cta-inner { grid-template-columns: 1fr; gap: 48px; }
       .footer-grid { grid-template-columns: 1fr 1fr; gap: 40px; }
     }
-    @media (max-width: 640px) {
-      nav { padding: 0 24px; }
+    @media (max-width: 900px) {
       .nav-links { display: none; }
-      .hero-content, .section-intro, .section-leistungen, .section-branchen, .section-prozess, .section-cta, footer { padding-left: 24px; padding-right: 24px; }
-      .leistungen-grid, .branchen-grid, .prozess-grid, .footer-grid { grid-template-columns: 1fr; }
+      .nav-login { display: none; }
+      .nav-hamburger { display: flex; }
+      .mobile-nav { display: flex; }
+    }
+    @media (max-width: 640px) {
+      nav { padding: 0 20px; height: 72px; }
+      .nav-logo { font-size: 16px; }
+      .mobile-nav { top: 72px; }
+      .hero { min-height: 380px; padding-bottom: 56px; }
+      .hero-content { padding: 0 20px; }
+      .hero-title { font-size: 26px; }
+      .section-intro { padding: 48px 20px; }
+      .section-leistungen { padding: 48px 20px; }
+      .section-branchen { padding: 48px 20px; }
+      .section-prozess { padding: 48px 20px; }
+      .section-cta { padding: 48px 20px; }
+      footer { padding: 48px 20px 32px; }
+      .leistungen-grid { grid-template-columns: 1fr; }
+      .branchen-grid { grid-template-columns: 1fr; }
+      .prozess-grid { grid-template-columns: 1fr; }
+      .footer-grid { grid-template-columns: 1fr; gap: 32px; }
+      .leistung-card { padding: 28px 20px; }
+      .branche-item { padding: 20px 16px; font-size: 17px; }
+      .prozess-step { padding: 28px 20px; }
+      .footer-bottom { flex-direction: column; gap: 8px; text-align: center; padding-top: 20px; }
+      .modal { padding: 36px 20px; }
+      .form-row { grid-template-columns: 1fr; }
+      .cta-inner { gap: 32px; }
     }
   </style>
   <link rel="stylesheet" href="cookie-consent.css" />
@@ -174,7 +213,19 @@
       <li><a href="index.html#kontakt">Kontakt</a></li>
     </ul>
     <button class="nav-login">Login</button>
+    <button class="nav-hamburger" id="navHamburger" aria-label="Menü öffnen">
+      <span></span><span></span><span></span>
+    </button>
   </nav>
+
+  <div class="mobile-nav" id="mobileNav">
+    <a href="index.html" class="mobile-nav-link" onclick="closeMobileNav()">Startseite</a>
+    <a href="gewerbe.html" class="mobile-nav-link" onclick="closeMobileNav()">Gewerbe & Industriekunden</a>
+    <a href="privatkunden.html" class="mobile-nav-link" onclick="closeMobileNav()">Privatkunden</a>
+    <a href="index.html#about" class="mobile-nav-link" onclick="closeMobileNav()">Über uns</a>
+    <a href="index.html#kontakt" class="mobile-nav-link" onclick="closeMobileNav()">Kontakt</a>
+    <button class="mobile-nav-login" onclick="closeMobileNav(); setTimeout(() => document.querySelector('.nav-login').click(), 200);">Login</button>
+  </div>
 
   <!-- HERO -->
   <section class="hero">
@@ -406,7 +457,13 @@
     function openModal() { document.getElementById('contactModal').classList.add('open'); document.body.style.overflow = 'hidden'; }
     function closeModal() { document.getElementById('contactModal').classList.remove('open'); document.body.style.overflow = ''; }
     function closeModalOnBackdrop(e) { if (e.target === document.getElementById('contactModal')) closeModal(); }
-    document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); })
+    document.addEventListener('keydown', e => { if (e.key === 'Escape') { closeModal(); closeMobileNav(); } })
+
+    const hamburger = document.getElementById('navHamburger');
+    const mobileNav = document.getElementById('mobileNav');
+    function openMobileNav() { hamburger.classList.add('open'); mobileNav.classList.add('open'); document.body.style.overflow = 'hidden'; }
+    function closeMobileNav() { hamburger.classList.remove('open'); mobileNav.classList.remove('open'); document.body.style.overflow = ''; }
+    hamburger.addEventListener('click', () => mobileNav.classList.contains('open') ? closeMobileNav() : openMobileNav());
 
     const SUCCESS_HTML = `<div style="padding:32px 0; text-align:center;">
       <p style="font-family:var(--serif); font-size:26px; color:var(--text); margin-bottom:12px;">Vielen Dank!</p>
