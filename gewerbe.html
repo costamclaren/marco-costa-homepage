@@ -159,6 +159,7 @@
       .leistungen-grid, .branchen-grid, .prozess-grid, .footer-grid { grid-template-columns: 1fr; }
     }
   </style>
+  <link rel="stylesheet" href="cookie-consent.css" />
 </head>
 <body>
 
@@ -436,5 +437,80 @@
       }
     });
   </script>
+
+  <!-- Cookie Consent Banner -->
+  <div class="cc-banner" id="cc-banner" hidden role="dialog" aria-labelledby="cc-title" aria-describedby="cc-desc">
+    <h2 id="cc-title">Cookie-Einstellungen</h2>
+    <p id="cc-desc">Diese Website verwendet Cookies und ähnliche Technologien. Einige sind technisch notwendig, andere helfen uns, die Website zu verbessern. Weitere Informationen finden Sie in unserer <a href="datenschutz.html">Datenschutzerklärung</a> und im <a href="impressum.html">Impressum</a>.</p>
+    <div class="cc-buttons">
+      <button type="button" class="cc-btn" data-cc-action="reject">Alle ablehnen</button>
+      <button type="button" class="cc-btn" data-cc-action="settings">Einstellungen</button>
+      <button type="button" class="cc-btn" data-cc-action="accept">Alle akzeptieren</button>
+    </div>
+  </div>
+
+  <div class="cc-modal-overlay" id="cc-modal-overlay" hidden role="dialog" aria-modal="true" aria-labelledby="cc-modal-title">
+    <div class="cc-modal">
+      <h2 id="cc-modal-title">Datenschutz-Einstellungen</h2>
+      <p>Wir respektieren Ihre Privatsphäre. Sie entscheiden, welche Kategorien von Cookies Sie zulassen möchten. Notwendige Cookies können nicht deaktiviert werden.</p>
+      <div class="cc-category">
+        <div class="cc-category-head">
+          <h3 class="cc-category-title">Notwendig</h3>
+          <label class="cc-toggle"><input type="checkbox" data-cc-category="necessary" checked disabled><span class="cc-slider"></span></label>
+        </div>
+        <p class="cc-category-desc">Erforderlich für den sicheren Betrieb der Website. Speichert z. B. Ihre Cookie-Einstellungen. Rechtsgrundlage: § 25 Abs. 2 Nr. 2 TDDDG i.V.m. Art. 6 Abs. 1 lit. f DSGVO.</p>
+        <details class="cc-category-details">
+          <summary>Details anzeigen</summary>
+          <table><thead><tr><th>Name</th><th>Anbieter</th><th>Zweck</th><th>Speicherdauer</th></tr></thead>
+          <tbody><tr><td>cc_consent</td><td>marco-costa.de</td><td>Speichert die Cookie-Einwilligung</td><td>12 Monate</td></tr></tbody></table>
+        </details>
+      </div>
+      <div class="cc-category">
+        <div class="cc-category-head">
+          <h3 class="cc-category-title">Funktional</h3>
+          <label class="cc-toggle"><input type="checkbox" data-cc-category="functional"><span class="cc-slider"></span></label>
+        </div>
+        <p class="cc-category-desc">Ermöglichen erweiterte Funktionen wie das Einbinden von Karten Dritter. Rechtsgrundlage: § 25 Abs. 1 TDDDG, Art. 6 Abs. 1 lit. a DSGVO.</p>
+        <details class="cc-category-details">
+          <summary>Details anzeigen</summary>
+          <table><thead><tr><th>Dienst</th><th>Anbieter</th><th>Zweck</th><th>Datentransfer</th></tr></thead>
+          <tbody><tr><td>Google Maps</td><td>Google Ireland Ltd., Dublin</td><td>Einbettung des Standorts</td><td>USA (ggf. Drittland)</td></tr></tbody></table>
+        </details>
+      </div>
+      <div class="cc-category">
+        <div class="cc-category-head">
+          <h3 class="cc-category-title">Statistik</h3>
+          <label class="cc-toggle"><input type="checkbox" data-cc-category="statistics"><span class="cc-slider"></span></label>
+        </div>
+        <p class="cc-category-desc">Helfen uns zu verstehen, wie Besucher die Website nutzen. Daten werden anonymisiert ausgewertet. Rechtsgrundlage: § 25 Abs. 1 TDDDG, Art. 6 Abs. 1 lit. a DSGVO.</p>
+        <details class="cc-category-details">
+          <summary>Details anzeigen</summary>
+          <table><thead><tr><th>Dienst</th><th>Anbieter</th><th>Zweck</th><th>Speicherdauer</th></tr></thead>
+          <tbody><tr><td colspan="4" style="color:#999;font-style:italic;">Derzeit keine Statistik-Dienste aktiv.</td></tr></tbody></table>
+        </details>
+      </div>
+      <div class="cc-category">
+        <div class="cc-category-head">
+          <h3 class="cc-category-title">Marketing</h3>
+          <label class="cc-toggle"><input type="checkbox" data-cc-category="marketing"><span class="cc-slider"></span></label>
+        </div>
+        <p class="cc-category-desc">Werden verwendet, um Werbung zielgerichtet auszuspielen. Rechtsgrundlage: § 25 Abs. 1 TDDDG, Art. 6 Abs. 1 lit. a DSGVO.</p>
+        <details class="cc-category-details">
+          <summary>Details anzeigen</summary>
+          <table><thead><tr><th>Dienst</th><th>Anbieter</th><th>Zweck</th><th>Datentransfer</th></tr></thead>
+          <tbody><tr><td colspan="4" style="color:#999;font-style:italic;">Derzeit keine Marketing-Cookies aktiv.</td></tr></tbody></table>
+        </details>
+      </div>
+      <p style="font-size:12px;color:#6b6f74;font-family:'Lato',sans-serif;font-weight:300;margin-top:20px;">Sie können Ihre Einwilligung jederzeit über „Cookie-Einstellungen" unten links widerrufen.</p>
+      <div class="cc-modal-buttons">
+        <button type="button" class="cc-btn" data-cc-action="reject">Alle ablehnen</button>
+        <button type="button" class="cc-btn" data-cc-action="save">Auswahl speichern</button>
+        <button type="button" class="cc-btn" data-cc-action="accept">Alle akzeptieren</button>
+      </div>
+    </div>
+  </div>
+
+  <button type="button" class="cc-revoke" id="cc-revoke" hidden>Cookie-Einstellungen</button>
+  <script src="cookie-consent.js"></script>
 </body>
 </html>
