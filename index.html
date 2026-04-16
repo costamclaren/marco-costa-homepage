@@ -22,9 +22,18 @@
     }
 
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    html { scroll-behavior: smooth; scroll-snap-type: y mandatory; scroll-padding-top: 90px; }
+    html, body { height: 100%; overflow: hidden; overscroll-behavior: none; }
     body { font-family: var(--sans); background: var(--bg); color: var(--text); -webkit-font-smoothing: antialiased; }
     a { text-decoration: none; color: inherit; }
+
+    /* Full-page scroll wrapper */
+    #fp-wrap {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      will-change: transform;
+      transform: translateY(0);
+      transition: transform 0.85s cubic-bezier(0.65, 0, 0.35, 1);
+    }
 
     /* NAV */
     nav {
@@ -42,7 +51,7 @@
     .nav-login:hover { background: var(--text); color: var(--white); }
 
     /* HERO */
-    .hero { position: relative; height: 100dvh; min-height: 640px; display: flex; align-items: center; overflow: hidden; background: var(--anthrazit); scroll-snap-align: start; }
+    .hero { position: relative; height: 100dvh; min-height: 640px; display: flex; align-items: center; overflow: hidden; background: var(--anthrazit); }
     .hero-bg { position: absolute; inset: 0; background-image: url('https://images.unsplash.com/photo-1748505625543-d84790f04e50?w=1800&q=80'); background-size: cover; background-position: center; opacity: 0.4; }
     .hero-overlay { position: absolute; inset: 0; background: linear-gradient(160deg, rgba(45,48,53,0.2) 0%, rgba(45,48,53,0.55) 50%, rgba(45,48,53,0.85) 100%); }
     .hero-content { position: relative; z-index: 2; max-width: 1280px; width: 100%; margin: 0 auto; padding: 0 56px; }
@@ -59,7 +68,7 @@
     .scroll-bar { width: 1px; height: 44px; background: linear-gradient(to bottom, rgba(255,255,255,0.5), transparent); animation: scrollAnim 2s 1.6s ease-in-out infinite; }
 
     /* LEISTUNGEN */
-    .section-services { background: var(--bg); padding: 72px 56px; height: 100dvh; display: flex; flex-direction: column; justify-content: center; scroll-snap-align: start; }
+    .section-services { background: var(--bg); padding: 72px 56px; height: 100dvh; display: flex; flex-direction: column; justify-content: center; }
     .inner { max-width: 1280px; margin: 0 auto; width: 100%; }
     .section-label { font-family: var(--sans); font-size: 18px; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: var(--gold); margin-bottom: 18px; }
     .section-title { font-family: var(--serif); font-size: clamp(28px, 3vw, 44px); font-weight: 400; color: var(--text); line-height: 1.2; max-width: 560px; margin-bottom: 72px; }
@@ -74,7 +83,7 @@
     .s-desc { font-family: var(--sans); font-size: 16px; line-height: 1.75; color: var(--muted); font-weight: 300; transition: color 0.35s; }
 
     /* ÜBER UNS */
-    .section-about { background: var(--anthrazit); padding: 72px 56px; height: 100dvh; display: flex; flex-direction: column; justify-content: center; scroll-snap-align: start; }
+    .section-about { background: var(--anthrazit); padding: 72px 56px; height: 100dvh; display: flex; flex-direction: column; justify-content: center; }
     .about-grid { max-width: 1280px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 96px; align-items: center; width: 100%; }
     .about-label { font-family: var(--sans); font-size: 18px; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: var(--gold); margin-bottom: 20px; }
     .about-title { font-family: var(--serif); font-size: clamp(26px, 2.8vw, 40px); font-weight: 400; color: #fff; line-height: 1.2; margin-bottom: 28px; }
@@ -84,7 +93,7 @@
     .stat-label { font-family: var(--sans); font-size: 15px; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(255,255,255,0.38); }
 
     /* KONTAKT */
-    .section-contact { background: var(--bg); padding: 72px 56px; height: 100dvh; display: flex; flex-direction: column; justify-content: center; scroll-snap-align: start; }
+    .section-contact { background: var(--bg); padding: 72px 56px; height: 100dvh; display: flex; flex-direction: column; justify-content: center; }
     .contact-grid { max-width: 1280px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1.5fr; gap: 96px; align-items: start; width: 100%; }
     .contact-title { font-family: var(--serif); font-size: clamp(26px, 2.8vw, 42px); font-weight: 400; color: var(--text); line-height: 1.15; margin-bottom: 24px; }
     .contact-text { font-family: var(--sans); font-size: 17px; line-height: 1.8; color: var(--muted); font-weight: 300; }
@@ -99,7 +108,7 @@
     .btn-dark:hover { background: #3a3f45; }
 
     /* FOOTER */
-    footer { background: var(--bg); border-top: 1px solid var(--border); padding: 80px 56px 48px; scroll-snap-align: start; }
+    footer { background: var(--bg); border-top: 1px solid var(--border); padding: 80px 56px 48px; }
     .footer-grid { max-width: 1280px; margin: 0 auto; display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 64px; margin-bottom: 64px; }
     .footer-brand { font-family: var(--serif); font-size: 22px; font-weight: 400; color: var(--text); line-height: 1.25; margin-bottom: 14px; }
     .footer-sub { font-family: var(--sans); font-size: 15px; color: var(--muted); font-weight: 300; line-height: 1.6; }
@@ -170,7 +179,6 @@
       .mobile-nav { display: flex; }
     }
     @media (max-width: 640px) {
-      html { scroll-padding-top: 72px; }
       nav { padding: 0 20px; height: 72px; }
       .nav-logo { font-size: 16px; }
       .mobile-nav { top: 72px; }
@@ -186,7 +194,7 @@
 
       .section-services { padding: 56px 20px; height: 100dvh; }
       .section-about { padding: 56px 20px; height: 100dvh; }
-      .section-contact { padding: 56px 20px; height: 100dvh; }
+      .section-contact { padding: 56px 20px; height: 100dvh; overflow-y: auto; overscroll-behavior-y: contain; }
       footer { padding: 56px 20px 36px; }
 
       .section-label { font-size: 11px; letter-spacing: 0.14em; }
@@ -246,6 +254,7 @@
     <button class="mobile-nav-login" onclick="closeMobileNav(); setTimeout(() => document.querySelector('.nav-login').click(), 200);">Login</button>
   </div>
 
+  <div id="fp-wrap">
   <section class="hero">
     <div class="hero-bg"></div>
     <div class="hero-overlay"></div>
@@ -326,6 +335,7 @@
       <span class="footer-copy">Versicherungsmakler (§ 34d GewO)</span>
     </div>
   </footer>
+  </div><!-- /#fp-wrap -->
 
   <!-- Kontakt-Info-Modal -->
   <div class="modal-backdrop" id="contactInfoModal" onclick="if(event.target===this)closeContactInfoModal()">
@@ -402,8 +412,6 @@
       document.body.style.overflow = '';
     }
     function closeModalOnBackdrop(e) { if (e.target === document.getElementById('contactModal')) closeModal(); }
-    document.addEventListener('keydown', e => { if (e.key === 'Escape') { closeModal(); closeContactInfoModal(); closeMobileNav(); } })
-
     async function submitForm(formEl, btnEl, successHtml) {
       btnEl.textContent = 'Wird gesendet…';
       btnEl.disabled = true;
@@ -444,24 +452,74 @@
       submitForm(this, this.querySelector('[type=submit]'), SUCCESS_HTML);
     });
 
-    // Full-page scroll: one wheel tick = one section
-    const fpSections = [...document.querySelectorAll('.hero, .section-services, .section-about, .section-contact, footer')];
+    // ── Full-page scroll engine ──────────────────────────────────────────────
+    const fpWrap     = document.getElementById('fp-wrap');
+    const fpSections = [...fpWrap.children];
     let fpIdx = 0, fpLock = false;
+
+    function goToSection(idx) {
+      if (fpLock || idx < 0 || idx >= fpSections.length || idx === fpIdx) return;
+      fpIdx = idx;
+      let offset = 0;
+      for (let i = 0; i < idx; i++) offset += fpSections[i].offsetHeight;
+      fpWrap.style.transform = `translateY(-${offset}px)`;
+      // Stagger-reveal content of incoming section at transition midpoint
+      setTimeout(() => {
+        fpSections[idx].querySelectorAll('.reveal:not(.visible)').forEach((el, i) => {
+          setTimeout(() => el.classList.add('visible'), i * 80);
+        });
+      }, 420);
+      fpLock = true;
+      setTimeout(() => fpLock = false, 950);
+    }
+
+    // Wheel (desktop)
     window.addEventListener('wheel', e => {
       if (e.ctrlKey) return;
       e.preventDefault();
-      if (fpLock) return;
-      const next = Math.max(0, Math.min(fpSections.length - 1, fpIdx + (e.deltaY > 0 ? 1 : -1)));
-      if (next === fpIdx) return;
-      fpIdx = next;
-      fpSections[fpIdx].scrollIntoView({ behavior: 'smooth', block: 'start' });
-      fpLock = true;
-      setTimeout(() => fpLock = false, 900);
+      goToSection(fpIdx + (e.deltaY > 0 ? 1 : -1));
     }, { passive: false });
-    const fpObs = new IntersectionObserver(entries => {
-      entries.forEach(e => { if (e.isIntersecting && e.intersectionRatio >= 0.5) fpIdx = fpSections.indexOf(e.target); });
-    }, { threshold: 0.5 });
-    fpSections.forEach(s => fpObs.observe(s));
+
+    // Touch (mobile) — detect swipe, skip if inside internal scroll container
+    let touchStartY = 0, touchInScrollable = false;
+    window.addEventListener('touchstart', e => {
+      touchStartY = e.touches[0].clientY;
+      let el = e.target;
+      touchInScrollable = false;
+      while (el && el !== document.body) {
+        const oy = window.getComputedStyle(el).overflowY;
+        if ((oy === 'auto' || oy === 'scroll') && el.scrollHeight > el.clientHeight) {
+          touchInScrollable = true; break;
+        }
+        el = el.parentElement;
+      }
+    }, { passive: true });
+    window.addEventListener('touchend', e => {
+      if (touchInScrollable || mobileNav.classList.contains('open')) return;
+      const delta = touchStartY - e.changedTouches[0].clientY;
+      if (Math.abs(delta) < 50) return;
+      goToSection(fpIdx + (delta > 0 ? 1 : -1));
+    }, { passive: true });
+
+    // Keyboard
+    window.addEventListener('keydown', e => {
+      if (e.key === 'Escape') { closeModal(); closeContactInfoModal(); closeMobileNav(); return; }
+      if (e.target.matches('input, textarea, button, select')) return;
+      if (e.key === 'ArrowDown' || e.key === 'PageDown') { e.preventDefault(); goToSection(fpIdx + 1); }
+      if (e.key === 'ArrowUp'   || e.key === 'PageUp')   { e.preventDefault(); goToSection(fpIdx - 1); }
+    });
+
+    // Intercept internal anchor links (#leistungen, #about, #kontakt …)
+    document.querySelectorAll('a[href^="#"]').forEach(link => {
+      link.addEventListener('click', e => {
+        const hash = link.getAttribute('href');
+        if (hash === '#') return;
+        const target = document.querySelector(hash);
+        if (!target) return;
+        const idx = fpSections.indexOf(target);
+        if (idx !== -1) { e.preventDefault(); goToSection(idx); }
+      });
+    });
   </script>
 
   <!-- Cookie Consent Banner -->

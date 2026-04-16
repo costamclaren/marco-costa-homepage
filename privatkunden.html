@@ -22,9 +22,17 @@
     }
 
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    html { scroll-behavior: smooth; scroll-snap-type: y mandatory; scroll-padding-top: 90px; }
+    html, body { height: 100%; overflow: hidden; overscroll-behavior: none; }
     body { font-family: var(--sans); background: var(--bg); color: var(--text); -webkit-font-smoothing: antialiased; }
     a { text-decoration: none; color: inherit; }
+
+    #fp-wrap {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      will-change: transform;
+      transform: translateY(0);
+      transition: transform 0.85s cubic-bezier(0.65, 0, 0.35, 1);
+    }
 
     /* NAV */
     nav {
@@ -42,7 +50,7 @@
     .nav-login:hover { background: var(--text); color: var(--white); }
 
     /* HERO */
-    .hero { position: relative; height: 100dvh; min-height: 100dvh; display: flex; align-items: center; padding-bottom: 0; overflow: hidden; background: var(--anthrazit); scroll-snap-align: start; }
+    .hero { position: relative; height: 100dvh; min-height: 100dvh; display: flex; align-items: center; padding-bottom: 0; overflow: hidden; background: var(--anthrazit) }
     .hero-bg { position: absolute; inset: 0; background-image: url('gallery.jpg'); background-size: cover; background-position: center; opacity: 0.45; }
     .hero-overlay { position: absolute; inset: 0; background: linear-gradient(160deg, rgba(45,48,53,0.1) 0%, rgba(45,48,53,0.45) 50%, rgba(45,48,53,0.88) 100%); }
     .hero-content { position: relative; z-index: 2; max-width: 1280px; width: 100%; margin: 0 auto; padding: 0 56px; }
@@ -60,12 +68,12 @@
     .section-text { font-family: var(--sans); font-size: 17px; line-height: 1.9; color: var(--muted); font-weight: 300; max-width: 760px; }
 
     /* EINLEITUNG */
-    .section-intro { background: var(--bg); padding: 72px 56px; min-height: 100dvh; display: flex; flex-direction: column; justify-content: center; scroll-snap-align: start; }
+    .section-intro { background: var(--bg); padding: 72px 56px; min-height: 100dvh; display: flex; flex-direction: column; justify-content: center }
     .section-intro .section-title { max-width: 640px; }
     .section-intro .section-text { margin-bottom: 20px; }
 
     /* LEISTUNGEN */
-    .section-leistungen { background: var(--white); padding: 72px 56px; scroll-snap-align: start; height: 100dvh; overflow-y: auto; overscroll-behavior-y: contain; }
+    .section-leistungen { background: var(--white); padding: 72px 56px; height: 100dvh; overflow-y: auto; overscroll-behavior-y: contain; }
     .section-leistungen .section-title { margin-bottom: 56px; }
     .leistungen-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; }
     .leistung-card { background: var(--bg); padding: 40px 32px; border: 1px solid rgba(45,48,53,0.07); transition: background 0.35s, border-color 0.35s; cursor: default; }
@@ -78,7 +86,7 @@
     .l-desc { font-family: var(--sans); font-size: 16px; line-height: 1.75; color: var(--muted); font-weight: 300; transition: color 0.35s; }
 
     /* VORGEHENSWEISE */
-    .section-prozess { background: var(--anthrazit); padding: 72px 56px; min-height: 100dvh; display: flex; flex-direction: column; justify-content: center; scroll-snap-align: start; }
+    .section-prozess { background: var(--anthrazit); padding: 72px 56px; min-height: 100dvh; display: flex; flex-direction: column; justify-content: center }
     .section-prozess .section-label { color: var(--gold); }
     .section-prozess .section-title { color: #fff; margin-bottom: 72px; }
     .prozess-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 2px; }
@@ -93,7 +101,7 @@
     .p-desc { font-family: var(--sans); font-size: 13px; line-height: 1.75; color: rgba(255,255,255,0.55); font-weight: 300; transition: color 0.3s; }
 
     /* CTA */
-    .section-cta { background: var(--bg); padding: 72px 56px; min-height: 100dvh; display: flex; flex-direction: column; justify-content: center; scroll-snap-align: start; }
+    .section-cta { background: var(--bg); padding: 72px 56px; min-height: 100dvh; display: flex; flex-direction: column; justify-content: center }
     .cta-inner { max-width: 1280px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 96px; align-items: center; width: 100%; }
     .cta-title { font-family: var(--serif); font-size: clamp(28px, 3vw, 44px); font-weight: 400; color: var(--text); line-height: 1.2; margin-bottom: 24px; }
     .cta-text { font-family: var(--sans); font-size: 17px; line-height: 1.85; color: var(--muted); font-weight: 300; margin-bottom: 40px; }
@@ -101,7 +109,7 @@
     .btn-dark:hover { background: #3a3f45; }
 
     /* FOOTER */
-    footer { background: var(--bg); border-top: 1px solid var(--border); padding: 80px 56px 48px; scroll-snap-align: start; }
+    footer { background: var(--bg); border-top: 1px solid var(--border); padding: 80px 56px 48px }
     .footer-grid { max-width: 1280px; margin: 0 auto; display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 64px; margin-bottom: 64px; }
     .footer-brand { font-family: var(--serif); font-size: 22px; font-weight: 400; color: var(--text); line-height: 1.25; margin-bottom: 14px; }
     .footer-sub { font-family: var(--sans); font-size: 15px; color: var(--muted); font-weight: 300; line-height: 1.6; }
@@ -165,7 +173,6 @@
       .mobile-nav { display: flex; }
     }
     @media (max-width: 640px) {
-      html { scroll-padding-top: 72px; }
       nav { padding: 0 20px; height: 72px; }
       .nav-logo { font-size: 16px; }
       .mobile-nav { top: 72px; }
@@ -214,6 +221,7 @@
     <button class="mobile-nav-login" onclick="closeMobileNav(); setTimeout(() => document.querySelector('.nav-login').click(), 200);">Login</button>
   </div>
 
+  <div id="fp-wrap">
   <!-- HERO -->
   <section class="hero">
     <div class="hero-bg"></div>
@@ -324,6 +332,7 @@
       <span class="footer-copy">Versicherungsmakler (§ 34d GewO)</span>
     </div>
   </footer>
+  </div><!-- /#fp-wrap -->
 
   <div class="modal-backdrop" id="contactModal" onclick="closeModalOnBackdrop(event)">
     <div class="modal">
@@ -350,19 +359,83 @@
       entries.forEach((e, i) => { if (e.isIntersecting) setTimeout(() => e.target.classList.add('visible'), i * 80) })
     }, { threshold: 0.1 })
     document.querySelectorAll('.reveal').forEach(el => observer.observe(el))
-    window.addEventListener('scroll', () => {
-      document.getElementById('navbar').style.background = window.scrollY > 50 ? 'rgba(242,241,239,0.99)' : 'rgba(242,241,239,0.96)'
-    })
     function openModal() { document.getElementById('contactModal').classList.add('open'); document.body.style.overflow = 'hidden'; }
     function closeModal() { document.getElementById('contactModal').classList.remove('open'); document.body.style.overflow = ''; }
     function closeModalOnBackdrop(e) { if (e.target === document.getElementById('contactModal')) closeModal(); }
-    document.addEventListener('keydown', e => { if (e.key === 'Escape') { closeModal(); closeMobileNav(); } })
 
     const hamburger = document.getElementById('navHamburger');
     const mobileNav = document.getElementById('mobileNav');
     function openMobileNav() { hamburger.classList.add('open'); mobileNav.classList.add('open'); document.body.style.overflow = 'hidden'; }
     function closeMobileNav() { hamburger.classList.remove('open'); mobileNav.classList.remove('open'); document.body.style.overflow = ''; }
     hamburger.addEventListener('click', () => mobileNav.classList.contains('open') ? closeMobileNav() : openMobileNav());
+
+    // ── Full-page scroll engine ──────────────────────────────────────────────
+    const fpWrap     = document.getElementById('fp-wrap');
+    const fpSections = [...fpWrap.children];
+    let fpIdx = 0, fpLock = false;
+
+    function goToSection(idx) {
+      if (fpLock || idx < 0 || idx >= fpSections.length || idx === fpIdx) return;
+      fpIdx = idx;
+      let offset = 0;
+      for (let i = 0; i < idx; i++) offset += fpSections[i].offsetHeight;
+      fpWrap.style.transform = `translateY(-${offset}px)`;
+      setTimeout(() => {
+        fpSections[idx].querySelectorAll('.reveal:not(.visible)').forEach((el, i) => {
+          setTimeout(() => el.classList.add('visible'), i * 80);
+        });
+      }, 420);
+      fpLock = true;
+      setTimeout(() => fpLock = false, 950);
+    }
+
+    // Wheel (desktop)
+    window.addEventListener('wheel', e => {
+      if (e.ctrlKey) return;
+      e.preventDefault();
+      goToSection(fpIdx + (e.deltaY > 0 ? 1 : -1));
+    }, { passive: false });
+
+    // Touch (mobile)
+    let touchStartY = 0, touchInScrollable = false;
+    window.addEventListener('touchstart', e => {
+      touchStartY = e.touches[0].clientY;
+      let el = e.target;
+      touchInScrollable = false;
+      while (el && el !== document.body) {
+        const oy = window.getComputedStyle(el).overflowY;
+        if ((oy === 'auto' || oy === 'scroll') && el.scrollHeight > el.clientHeight) {
+          touchInScrollable = true; break;
+        }
+        el = el.parentElement;
+      }
+    }, { passive: true });
+    window.addEventListener('touchend', e => {
+      if (touchInScrollable || mobileNav.classList.contains('open')) return;
+      const delta = touchStartY - e.changedTouches[0].clientY;
+      if (Math.abs(delta) < 50) return;
+      goToSection(fpIdx + (delta > 0 ? 1 : -1));
+    }, { passive: true });
+
+    // Keyboard
+    window.addEventListener('keydown', e => {
+      if (e.key === 'Escape') { closeModal(); closeMobileNav(); return; }
+      if (e.target.matches('input, textarea, button, select')) return;
+      if (e.key === 'ArrowDown' || e.key === 'PageDown') { e.preventDefault(); goToSection(fpIdx + 1); }
+      if (e.key === 'ArrowUp'   || e.key === 'PageUp')   { e.preventDefault(); goToSection(fpIdx - 1); }
+    });
+
+    // Intercept internal anchor links
+    document.querySelectorAll('a[href^="#"]').forEach(link => {
+      link.addEventListener('click', e => {
+        const hash = link.getAttribute('href');
+        if (hash === '#') return;
+        const target = document.querySelector(hash);
+        if (!target) return;
+        const idx = fpSections.indexOf(target);
+        if (idx !== -1) { e.preventDefault(); goToSection(idx); }
+      });
+    });
 
     const SUCCESS_HTML = `<div style="padding:32px 0; text-align:center;">
       <p style="font-family:var(--serif); font-size:26px; color:var(--text); margin-bottom:12px;">Vielen Dank!</p>
