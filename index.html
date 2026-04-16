@@ -213,14 +213,17 @@
         <h2 class="contact-title reveal">Nehmen Sie Kontakt mit uns auf</h2>
         <p class="contact-text reveal">Haben Sie Interesse an einer Zusammenarbeit? Füllen Sie bitte das Formular aus und wir werden uns in Kürze bei Ihnen melden. Wir freuen uns darauf, von Ihnen zu hören.</p>
       </div>
-      <form onsubmit="return false;" class="reveal">
+      <form id="pageContactForm" class="reveal">
+        <input type="hidden" name="_subject" value="Neue Kontaktanfrage – Marco Costa Versicherungsmakler" />
+        <input type="hidden" name="_captcha" value="false" />
         <div class="form-row">
-          <div class="form-group"><label class="form-label">Vorname <span>(erforderlich)</span></label><input type="text" class="form-input" placeholder="Max" required /></div>
-          <div class="form-group"><label class="form-label">Nachname <span>(erforderlich)</span></label><input type="text" class="form-input" placeholder="Mustermann" required /></div>
+          <div class="form-group"><label class="form-label">Vorname <span>(erforderlich)</span></label><input type="text" name="Vorname" class="form-input" placeholder="Max" required /></div>
+          <div class="form-group"><label class="form-label">Nachname <span>(erforderlich)</span></label><input type="text" name="Nachname" class="form-input" placeholder="Mustermann" required /></div>
         </div>
-        <div class="form-group full"><label class="form-label">E-Mail-Adresse <span>(erforderlich)</span></label><input type="email" class="form-input" placeholder="max@beispiel.de" required /></div>
-        <div class="form-group full"><label class="form-label">Telefonnummer <span>(erforderlich)</span></label><input type="tel" class="form-input" placeholder="+49 211 123456" required /></div>
-        <div class="form-group full"><label class="form-label">Nachricht <span>(erforderlich)</span></label><textarea class="form-textarea" placeholder="Ihre Nachricht..." required></textarea></div>
+        <div class="form-group full"><label class="form-label">E-Mail-Adresse <span>(erforderlich)</span></label><input type="email" name="E-Mail" class="form-input" placeholder="max@beispiel.de" required /></div>
+        <div class="form-group full"><label class="form-label">Telefonnummer <span>(erforderlich)</span></label><input type="tel" name="Telefon" class="form-input" placeholder="+49 211 123456" required /></div>
+        <div class="form-group full"><label class="form-label">Nachricht <span>(erforderlich)</span></label><textarea name="Nachricht" class="form-textarea" placeholder="Ihre Nachricht..." required></textarea></div>
+        <div id="pageFormMsg" style="display:none; margin-top:24px; font-family:var(--sans); font-size:15px; color:var(--muted);"></div>
         <button type="submit" class="btn-dark">Senden</button>
       </form>
     </div>
@@ -244,14 +247,16 @@
       <button class="modal-close" onclick="closeModal()" aria-label="Schließen">×</button>
       <h2 class="modal-title">Beratung vereinbaren</h2>
       <p class="modal-sub">Füllen Sie das Formular aus – wir melden uns zeitnah bei Ihnen.</p>
-      <form onsubmit="return false;">
+      <form id="modalContactForm">
+        <input type="hidden" name="_subject" value="Neue Kontaktanfrage – Marco Costa Versicherungsmakler" />
+        <input type="hidden" name="_captcha" value="false" />
         <div class="form-row">
-          <div class="form-group"><label class="form-label">Vorname <span>(erforderlich)</span></label><input type="text" class="form-input" placeholder="Max" required /></div>
-          <div class="form-group"><label class="form-label">Nachname <span>(erforderlich)</span></label><input type="text" class="form-input" placeholder="Mustermann" required /></div>
+          <div class="form-group"><label class="form-label">Vorname <span>(erforderlich)</span></label><input type="text" name="Vorname" class="form-input" placeholder="Max" required /></div>
+          <div class="form-group"><label class="form-label">Nachname <span>(erforderlich)</span></label><input type="text" name="Nachname" class="form-input" placeholder="Mustermann" required /></div>
         </div>
-        <div class="form-group full"><label class="form-label">E-Mail-Adresse <span>(erforderlich)</span></label><input type="email" class="form-input" placeholder="max@beispiel.de" required /></div>
-        <div class="form-group full"><label class="form-label">Telefonnummer <span>(erforderlich)</span></label><input type="tel" class="form-input" placeholder="+49 211 123456" required /></div>
-        <div class="form-group full"><label class="form-label">Nachricht <span>(erforderlich)</span></label><textarea class="form-textarea" placeholder="Ihre Nachricht..." required></textarea></div>
+        <div class="form-group full"><label class="form-label">E-Mail-Adresse <span>(erforderlich)</span></label><input type="email" name="E-Mail" class="form-input" placeholder="max@beispiel.de" required /></div>
+        <div class="form-group full"><label class="form-label">Telefonnummer <span>(erforderlich)</span></label><input type="tel" name="Telefon" class="form-input" placeholder="+49 211 123456" required /></div>
+        <div class="form-group full"><label class="form-label">Nachricht <span>(erforderlich)</span></label><textarea name="Nachricht" class="form-textarea" placeholder="Ihre Nachricht..." required></textarea></div>
         <button type="submit" class="btn-dark">Senden</button>
       </form>
     </div>
@@ -265,10 +270,51 @@
     window.addEventListener('scroll', () => {
       document.getElementById('navbar').style.background = window.scrollY > 50 ? 'rgba(242,241,239,0.99)' : 'rgba(242,241,239,0.96)'
     })
-    function openModal() { document.getElementById('contactModal').classList.add('open'); document.body.style.overflow = 'hidden'; }
-    function closeModal() { document.getElementById('contactModal').classList.remove('open'); document.body.style.overflow = ''; }
+    function openModal() {
+      document.getElementById('contactModal').classList.add('open');
+      document.body.style.overflow = 'hidden';
+    }
+    function closeModal() {
+      document.getElementById('contactModal').classList.remove('open');
+      document.body.style.overflow = '';
+    }
     function closeModalOnBackdrop(e) { if (e.target === document.getElementById('contactModal')) closeModal(); }
     document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); })
+
+    async function submitForm(formEl, btnEl, successHtml) {
+      btnEl.textContent = 'Wird gesendet…';
+      btnEl.disabled = true;
+      try {
+        const res = await fetch('https://formsubmit.co/ajax/info@marco-costa.de', {
+          method: 'POST',
+          headers: { 'Accept': 'application/json' },
+          body: new FormData(formEl)
+        });
+        const data = await res.json();
+        if (data.success === 'true' || data.success === true) {
+          formEl.innerHTML = successHtml;
+        } else { throw new Error(); }
+      } catch {
+        btnEl.textContent = 'Senden';
+        btnEl.disabled = false;
+        alert('Etwas ist schiefgelaufen. Bitte schreiben Sie uns direkt an info@marco-costa.de');
+      }
+    }
+
+    const SUCCESS_HTML = `<div style="padding:32px 0; text-align:center;">
+      <p style="font-family:var(--serif); font-size:26px; color:var(--text); margin-bottom:12px;">Vielen Dank!</p>
+      <p style="font-family:var(--sans); font-size:16px; color:var(--muted); font-weight:300; line-height:1.7;">Ihre Nachricht wurde erfolgreich gesendet.<br>Wir melden uns zeitnah bei Ihnen.</p>
+    </div>`;
+
+    document.getElementById('modalContactForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      submitForm(this, this.querySelector('[type=submit]'), SUCCESS_HTML);
+    });
+
+    document.getElementById('pageContactForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      submitForm(this, this.querySelector('[type=submit]'), SUCCESS_HTML);
+    });
   </script>
 </body>
 </html>

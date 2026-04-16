@@ -378,14 +378,16 @@
       <button class="modal-close" onclick="closeModal()" aria-label="Schließen">×</button>
       <h2 class="modal-title">Beratung vereinbaren</h2>
       <p class="modal-sub">Füllen Sie das Formular aus – wir melden uns zeitnah bei Ihnen.</p>
-      <form onsubmit="return false;">
+      <form id="modalContactForm">
+        <input type="hidden" name="_subject" value="Neue Kontaktanfrage – Marco Costa Versicherungsmakler" />
+        <input type="hidden" name="_captcha" value="false" />
         <div class="form-row">
-          <div class="form-group"><label class="form-label">Vorname <span>(erforderlich)</span></label><input type="text" class="form-input" placeholder="Max" required /></div>
-          <div class="form-group"><label class="form-label">Nachname <span>(erforderlich)</span></label><input type="text" class="form-input" placeholder="Mustermann" required /></div>
+          <div class="form-group"><label class="form-label">Vorname <span>(erforderlich)</span></label><input type="text" name="Vorname" class="form-input" placeholder="Max" required /></div>
+          <div class="form-group"><label class="form-label">Nachname <span>(erforderlich)</span></label><input type="text" name="Nachname" class="form-input" placeholder="Mustermann" required /></div>
         </div>
-        <div class="form-group full"><label class="form-label">E-Mail-Adresse <span>(erforderlich)</span></label><input type="email" class="form-input" placeholder="max@beispiel.de" required /></div>
-        <div class="form-group full"><label class="form-label">Telefonnummer <span>(erforderlich)</span></label><input type="tel" class="form-input" placeholder="+49 211 123456" required /></div>
-        <div class="form-group full"><label class="form-label">Nachricht <span>(erforderlich)</span></label><textarea class="form-textarea" placeholder="Ihre Nachricht..." required></textarea></div>
+        <div class="form-group full"><label class="form-label">E-Mail-Adresse <span>(erforderlich)</span></label><input type="email" name="E-Mail" class="form-input" placeholder="max@beispiel.de" required /></div>
+        <div class="form-group full"><label class="form-label">Telefonnummer <span>(erforderlich)</span></label><input type="tel" name="Telefon" class="form-input" placeholder="+49 211 123456" required /></div>
+        <div class="form-group full"><label class="form-label">Nachricht <span>(erforderlich)</span></label><textarea name="Nachricht" class="form-textarea" placeholder="Ihre Nachricht..." required></textarea></div>
         <button type="submit" class="btn-send">Senden</button>
       </form>
     </div>
@@ -403,6 +405,33 @@
     function closeModal() { document.getElementById('contactModal').classList.remove('open'); document.body.style.overflow = ''; }
     function closeModalOnBackdrop(e) { if (e.target === document.getElementById('contactModal')) closeModal(); }
     document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); })
+
+    const SUCCESS_HTML = `<div style="padding:32px 0; text-align:center;">
+      <p style="font-family:var(--serif); font-size:26px; color:var(--text); margin-bottom:12px;">Vielen Dank!</p>
+      <p style="font-family:var(--sans); font-size:16px; color:var(--muted); font-weight:300; line-height:1.7;">Ihre Nachricht wurde erfolgreich gesendet.<br>Wir melden uns zeitnah bei Ihnen.</p>
+    </div>`;
+
+    document.getElementById('modalContactForm').addEventListener('submit', async function(e) {
+      e.preventDefault();
+      const btn = this.querySelector('[type=submit]');
+      btn.textContent = 'Wird gesendet…';
+      btn.disabled = true;
+      try {
+        const res = await fetch('https://formsubmit.co/ajax/info@marco-costa.de', {
+          method: 'POST',
+          headers: { 'Accept': 'application/json' },
+          body: new FormData(this)
+        });
+        const data = await res.json();
+        if (data.success === 'true' || data.success === true) {
+          this.innerHTML = SUCCESS_HTML;
+        } else { throw new Error(); }
+      } catch {
+        btn.textContent = 'Senden';
+        btn.disabled = false;
+        alert('Etwas ist schiefgelaufen. Bitte schreiben Sie uns direkt an info@marco-costa.de');
+      }
+    });
   </script>
 </body>
 </html>
