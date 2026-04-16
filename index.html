@@ -294,7 +294,7 @@
         <p class="about-label-sub reveal" style="font-family:var(--serif);font-size:clamp(17px,1.8vw,22px);font-weight:400;font-style:italic;color:rgba(255,255,255,0.85);margin-bottom:28px;">Spezialisiert. Vernetzt. Ganzheitlich.</p>
         <p class="about-text reveal">Gewachsen in unterschiedlichen Fachbereichen und Sparten, bringen wir ausgewiesene Expertise für die Themen mit, die in der Beratung tatsächlich Tiefe verlangen – von komplexen gewerblichen Deckungskonzepten bis zu anspruchsvollen privaten Vorsorgelösungen.</p>
         <p class="about-text reveal" style="margin-top:18px;">Was unsere Arbeit auszeichnet, ist das Netzwerk dahinter: spezialisierte Underwriter für außergewöhnliche Risiken, Softwarepartner für die Digitalisierung unternehmerischer Prozesse und ausgewählte Experten aus angrenzenden Fachgebieten. Wir beraten nicht nur – wir verbinden die richtigen Kompetenzen zur passenden Lösung.</p>
-        <p class="about-text reveal" style="margin-top:18px;font-style:italic;color:rgba(255,255,255,0.5);">Unabhängig. Ausschließlich Ihren Interessen verpflichtet. Mit dem Anspruch, mehr zu liefern als der Markt erwartet.</p>
+        <p class="about-text reveal" style="margin-top:18px;font-style:italic;color:rgba(255,255,255,0.5);">Ausschließlich Ihren Interessen verpflichtet. Mit dem Anspruch, mehr zu liefern als der Markt erwartet.</p>
         <a href="#" class="btn-white reveal" onclick="openModal(); return false;">Gespräch vereinbaren</a>
       </div>
       <div class="stats-grid">
@@ -483,24 +483,35 @@
       goToSection(fpIdx + (e.deltaY > 0 ? 1 : -1));
     }, { passive: false });
 
-    // Touch (mobile) — detect swipe, skip if inside internal scroll container
-    let touchStartY = 0, touchInScrollable = false;
+    // Touch (mobile) — swipe navigation + manual scroll for overflow containers
+    let touchStartY = 0, touchLastY = 0, touchInScrollable = false, scrollableEl = null;
     window.addEventListener('touchstart', e => {
-      touchStartY = e.touches[0].clientY;
-      let el = e.target;
-      touchInScrollable = false;
+      touchStartY = touchLastY = e.touches[0].clientY;
+      let el = e.target; touchInScrollable = false; scrollableEl = null;
       while (el && el !== document.body) {
         const oy = window.getComputedStyle(el).overflowY;
         if ((oy === 'auto' || oy === 'scroll') && el.scrollHeight > el.clientHeight) {
-          touchInScrollable = true; break;
+          touchInScrollable = true; scrollableEl = el; break;
         }
         el = el.parentElement;
       }
     }, { passive: true });
+    window.addEventListener('touchmove', e => {
+      if (!scrollableEl) return;
+      const d = touchLastY - e.touches[0].clientY;
+      touchLastY = e.touches[0].clientY;
+      scrollableEl.scrollTop += d;
+    }, { passive: true });
     window.addEventListener('touchend', e => {
-      if (touchInScrollable || mobileNav.classList.contains('open')) return;
+      if (mobileNav.classList.contains('open')) return;
       const delta = touchStartY - e.changedTouches[0].clientY;
       if (Math.abs(delta) < 50) return;
+      if (touchInScrollable && scrollableEl) {
+        if (delta < 0 && scrollableEl.scrollTop <= 0) { goToSection(fpIdx - 1); return; }
+        const atBottom = scrollableEl.scrollTop >= scrollableEl.scrollHeight - scrollableEl.clientHeight - 2;
+        if (delta > 0 && atBottom) { goToSection(fpIdx + 1); return; }
+        return;
+      }
       goToSection(fpIdx + (delta > 0 ? 1 : -1));
     }, { passive: true });
 

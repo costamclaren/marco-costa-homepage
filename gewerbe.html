@@ -55,8 +55,8 @@
     .hero-overlay { position: absolute; inset: 0; background: linear-gradient(160deg, rgba(45,48,53,0.2) 0%, rgba(45,48,53,0.55) 50%, rgba(45,48,53,0.88) 100%); }
     .hero-content { position: relative; z-index: 2; max-width: 1280px; width: 100%; margin: 0 auto; padding: 0 56px; }
     .hero-label { font-family: var(--sans); font-size: 13px; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: var(--gold); margin-bottom: 16px; opacity: 0; animation: fadeUp 1s 0.2s forwards; }
-    .hero-title { font-family: var(--serif); font-size: clamp(32px, 4.5vw, 62px); font-weight: 400; color: #fff; line-height: 1.1; letter-spacing: -0.01em; margin-bottom: 18px; opacity: 0; transform: translateY(30px); animation: fadeUp 1s 0.35s forwards; }
-    .hero-sub { font-family: var(--serif); font-size: clamp(16px, 2vw, 24px); font-style: italic; color: rgba(255,255,255,0.75); line-height: 1.5; margin-bottom: 36px; opacity: 0; transform: translateY(30px); animation: fadeUp 1s 0.5s forwards; }
+    .hero-title { font-family: var(--serif); font-size: clamp(38px, 5.5vw, 72px); font-weight: 400; color: #fff; line-height: 1.1; letter-spacing: -0.01em; margin-bottom: 18px; opacity: 0; transform: translateY(30px); animation: fadeUp 1s 0.35s forwards; }
+    .hero-sub { font-family: var(--serif); font-size: clamp(22px, 2.8vw, 40px); font-style: italic; color: rgba(255,255,255,0.8); line-height: 1.45; margin-bottom: 44px; opacity: 0; transform: translateY(30px); animation: fadeUp 1s 0.5s forwards; }
     .hero-btns { opacity: 0; transform: translateY(30px); animation: fadeUp 1s 0.65s forwards; }
     .btn-white { font-family: var(--sans); font-size: 12px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; padding: 15px 36px; background: #fff; color: var(--anthrazit); display: inline-block; transition: background 0.2s; }
     .btn-white:hover { background: #e8e6e3; }
@@ -184,9 +184,10 @@
       nav { padding: 0 20px; height: 72px; }
       .nav-logo { font-size: 16px; }
       .mobile-nav { top: 72px; }
-      .hero { height: 100dvh; min-height: 100dvh; padding-bottom: 56px; }
-      .hero-content { padding: 0 20px; }
-      .hero-title { font-size: 26px; }
+      .hero { align-items: flex-start; padding-top: 72px; padding-bottom: 0; }
+      .hero-content { padding: 0 20px 40px; display: flex; flex-direction: column; height: calc(100dvh - 72px); }
+      .hero-title { font-size: 34px; margin-top: auto; }
+      .hero-sub { font-size: 22px; margin-top: 14px; margin-bottom: auto; }
       .section-intro, .section-leistungen, .section-branchen, .section-prozess, .section-cta { padding: 48px 20px; }
       footer { padding: 48px 20px 32px; }
       .leistungen-grid { grid-template-columns: 1fr; }
@@ -237,7 +238,6 @@
     <div class="hero-bg"></div>
     <div class="hero-overlay"></div>
     <div class="hero-content">
-      <p class="hero-label">Unsere Leistungen</p>
       <h1 class="hero-title">Gewerbe & Industriekunden</h1>
       <p class="hero-sub">Versicherungslösungen für Unternehmen – strategisch, präzise und auf Ihre Branche abgestimmt.</p>
       <div class="hero-btns">
@@ -253,7 +253,7 @@
       <h2 class="section-title reveal">Ihr Versicherungsmakler für unternehmerische Risiken</h2>
       <p class="section-text reveal">Unternehmerische Risiken sind komplex — und selten mit Standardlösungen beherrschbar. Als zugelassener Versicherungsmakler nach § 34d GewO analysieren wir Ihre individuelle Risikostruktur und entwickeln maßgeschneiderte Versicherungskonzepte, die Ihr Unternehmen wirksam absichern.</p>
       <br>
-      <p class="section-text reveal">Wir arbeiten ausschließlich in Ihrem Interesse und sind keinem Versicherer verpflichtet. Unser Ziel ist es, für jede unternehmerische Anforderung die wirtschaftlich und inhaltlich beste Lösung zu finden — branchenübergreifend, herstellerunabhängig und mit höchstem Qualitätsanspruch.</p>
+      <p class="section-text reveal">Wir arbeiten ausschließlich in Ihrem Interesse und sind keinem Versicherer verpflichtet. Unser Ziel ist es, für jede unternehmerische Anforderung die wirtschaftlich und inhaltlich beste Lösung zu finden — branchenübergreifend, ohne Produktbindung und mit höchstem Qualitätsanspruch.</p>
     </div>
   </section>
 
@@ -494,24 +494,35 @@
       goToSection(fpIdx + (e.deltaY > 0 ? 1 : -1));
     }, { passive: false });
 
-    // Touch (mobile)
-    let touchStartY = 0, touchInScrollable = false;
+    // Touch (mobile) — swipe navigation + manual scroll for overflow containers
+    let touchStartY = 0, touchLastY = 0, touchInScrollable = false, scrollableEl = null;
     window.addEventListener('touchstart', e => {
-      touchStartY = e.touches[0].clientY;
-      let el = e.target;
-      touchInScrollable = false;
+      touchStartY = touchLastY = e.touches[0].clientY;
+      let el = e.target; touchInScrollable = false; scrollableEl = null;
       while (el && el !== document.body) {
         const oy = window.getComputedStyle(el).overflowY;
         if ((oy === 'auto' || oy === 'scroll') && el.scrollHeight > el.clientHeight) {
-          touchInScrollable = true; break;
+          touchInScrollable = true; scrollableEl = el; break;
         }
         el = el.parentElement;
       }
     }, { passive: true });
+    window.addEventListener('touchmove', e => {
+      if (!scrollableEl) return;
+      const d = touchLastY - e.touches[0].clientY;
+      touchLastY = e.touches[0].clientY;
+      scrollableEl.scrollTop += d;
+    }, { passive: true });
     window.addEventListener('touchend', e => {
-      if (touchInScrollable || mobileNav.classList.contains('open')) return;
+      if (mobileNav.classList.contains('open')) return;
       const delta = touchStartY - e.changedTouches[0].clientY;
       if (Math.abs(delta) < 50) return;
+      if (touchInScrollable && scrollableEl) {
+        if (delta < 0 && scrollableEl.scrollTop <= 0) { goToSection(fpIdx - 1); return; }
+        const atBottom = scrollableEl.scrollTop >= scrollableEl.scrollHeight - scrollableEl.clientHeight - 2;
+        if (delta > 0 && atBottom) { goToSection(fpIdx + 1); return; }
+        return;
+      }
       goToSection(fpIdx + (delta > 0 ? 1 : -1));
     }, { passive: true });
 
