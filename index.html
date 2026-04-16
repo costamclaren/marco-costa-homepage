@@ -118,7 +118,7 @@
     .btn-dark:hover { background: #3a3f45; }
 
     /* FOOTER */
-    footer { background: var(--bg); border-top: 1px solid var(--border); padding: 90px 56px 56px; min-height: 100dvh; display: flex; flex-direction: column; justify-content: center; }
+    footer { background: var(--bg); border-top: 1px solid var(--border); padding: 80px 56px 48px; }
     .footer-grid { max-width: 1280px; margin: 0 auto; display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 64px; margin-bottom: 64px; }
     .footer-brand { font-family: var(--serif); font-size: 22px; font-weight: 400; color: var(--text); line-height: 1.25; margin-bottom: 14px; }
     .footer-sub { font-family: var(--sans); font-size: 15px; color: var(--muted); font-weight: 300; line-height: 1.6; }
@@ -378,7 +378,7 @@
     <div class="modal">
       <button class="modal-close" onclick="closeModal()" aria-label="Schließen">×</button>
       <h2 class="modal-title">Beratung vereinbaren</h2>
-      <p class="modal-sub">Hinterlassen Sie uns kurz Ihre Kontaktdaten – wir melden uns zeitnah persönlich bei Ihnen.</p>
+      <p class="modal-sub">Hinterlassen Sie uns kurz Ihre Kontaktdaten<br>– wir melden uns zeitnah persönlich bei Ihnen.</p>
       <form id="modalContactForm">
         <input type="hidden" name="_subject" value="Neue Kontaktanfrage – Marco Costa Versicherungsmakler" />
         <input type="hidden" name="_captcha" value="false" />
@@ -475,6 +475,8 @@
       fpIdx = idx;
       let offset = 0;
       for (let i = 0; i < idx; i++) offset += fpSections[i].offsetHeight;
+      const maxOffset = Math.max(0, Array.from(fpWrap.children).reduce((a,el) => a + el.offsetHeight, 0) - window.innerHeight);
+      if (offset > maxOffset) offset = maxOffset;
       fpWrap.style.transform = `translateY(-${offset}px)`;
       // Stagger-reveal content of incoming section at transition midpoint
       setTimeout(() => {
