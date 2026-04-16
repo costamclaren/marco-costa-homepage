@@ -329,11 +329,14 @@
         const data = await res.json();
         if (data.success === 'true' || data.success === true) {
           this.innerHTML = SUCCESS_HTML;
-        } else { throw new Error(); }
-      } catch {
+        } else { throw new Error(data.message || 'unknown'); }
+      } catch(err) {
         btn.textContent = 'Senden';
         btn.disabled = false;
-        alert('Etwas ist schiefgelaufen. Bitte schreiben Sie uns direkt an info@marco-costa.de');
+        const msg = err.message && err.message.includes('Activation')
+          ? 'Das Formular muss einmalig aktiviert werden. Bitte prüfen Sie das Postfach info@marco-costa.de und klicken Sie den Aktivierungs-Link von Formsubmit.co.'
+          : 'Etwas ist schiefgelaufen. Bitte schreiben Sie uns direkt an info@marco-costa.de';
+        alert(msg);
       }
     });
   </script>
