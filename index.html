@@ -493,6 +493,7 @@
 
     function goToSection(idx) {
       if (fpLock || idx < 0 || idx >= fpSections.length || idx === fpIdx) return;
+      fpSections[fpIdx].scrollTop = 0; // reset scroll of section being left
       fpIdx = idx;
       let offset = 0;
       for (let i = 0; i < idx; i++) offset += fpSections[i].offsetHeight;
@@ -575,13 +576,22 @@
       if (e.key === 'ArrowUp'   || e.key === 'PageUp')   { e.preventDefault(); goToSection(fpIdx - 1); }
     });
 
-    // Handle incoming hash links from other pages (e.g. /#about from /gewerbe nav)
+    // Handle incoming hash links from other pages (e.g. /#about, /#kontakt from /gewerbe nav)
     if (window.location.hash) {
       const hashId = window.location.hash.slice(1);
-      const hashTarget = document.getElementById(hashId);
-      if (hashTarget) {
-        const hashIdx = fpSections.indexOf(hashTarget);
-        if (hashIdx !== -1) setTimeout(() => goToSection(hashIdx), 200);
+      if (hashId === 'kontakt') {
+        // Kontakt: navigate to contact section and open the info modal
+        setTimeout(() => {
+          const kontaktEl = document.getElementById('kontakt');
+          if (kontaktEl) { const idx = fpSections.indexOf(kontaktEl); if (idx !== -1) goToSection(idx); }
+          setTimeout(openContactInfoModal, 300);
+        }, 200);
+      } else {
+        const hashTarget = document.getElementById(hashId);
+        if (hashTarget) {
+          const hashIdx = fpSections.indexOf(hashTarget);
+          if (hashIdx !== -1) setTimeout(() => goToSection(hashIdx), 200);
+        }
       }
     }
 

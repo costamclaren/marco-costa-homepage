@@ -417,6 +417,7 @@
 
     function goToSection(idx) {
       if (fpLock || idx < 0 || idx >= fpSections.length || idx === fpIdx) return;
+      fpSections[fpIdx].scrollTop = 0; // reset scroll of section being left
       fpIdx = idx;
       let offset = 0;
       for (let i = 0; i < idx; i++) offset += fpSections[i].offsetHeight;
