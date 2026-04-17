@@ -86,22 +86,20 @@
     .section-leistungen { background: var(--white); padding: 72px 56px; height: 100dvh; overflow-y: auto; overscroll-behavior-y: contain; }
     .section-leistungen .section-title { margin-bottom: 48px; }
     .leistungen-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; }
-    .leistung-card { background: var(--bg); padding: 26px 24px; border: 1px solid rgba(45,48,53,0.07); transition: background 0.35s, border-color 0.35s; cursor: pointer; }
-    .leistung-card.open { background: var(--anthrazit); border-color: var(--anthrazit); }
+    .leistung-card { position: relative; background: var(--bg); padding: 26px 24px; border: 1px solid rgba(45,48,53,0.07); transition: background 0.3s, border-color 0.3s; cursor: pointer; z-index: 1; }
+    .leistung-card.open { background: var(--anthrazit); border-color: var(--anthrazit); z-index: 20; }
     .leistung-card.open .l-num { color: rgba(255,255,255,0.45); }
     .leistung-card.open .l-name { color: #fff; }
-    .leistung-card.open .l-desc { color: rgba(255,255,255,0.7); }
-    .leistung-card.open .l-line { background: rgba(255,255,255,0.15); }
     .leistung-card.open .l-toggle { transform: rotate(45deg); }
     .l-header { display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; }
     .l-left { flex: 1; min-width: 0; }
-    .l-toggle { font-size: 22px; font-weight: 300; color: var(--gold); line-height: 1; flex-shrink: 0; transition: transform 0.35s; margin-top: 4px; }
-    .l-body { max-height: 0; overflow: hidden; transition: max-height 0.45s ease; }
-    .leistung-card.open .l-body { max-height: 260px; }
-    .l-num { font-family: var(--serif); font-size: 12px; color: var(--muted); margin-bottom: 10px; transition: color 0.35s; }
-    .l-name { font-family: var(--serif); font-size: 19px; font-weight: 400; color: var(--text); line-height: 1.3; transition: color 0.35s; }
-    .l-line { width: 28px; height: 1px; background: var(--border); margin: 14px 0 10px; transition: background 0.35s; }
-    .l-desc { font-family: var(--sans); font-size: 14px; line-height: 1.75; color: var(--muted); font-weight: 300; transition: color 0.35s; }
+    .l-toggle { font-size: 22px; font-weight: 300; color: var(--gold); line-height: 1; flex-shrink: 0; transition: transform 0.3s; margin-top: 4px; }
+    .l-body { position: absolute; top: calc(100% - 1px); left: -1px; right: -1px; background: var(--anthrazit); border: 1px solid var(--anthrazit); padding: 18px 24px 22px; z-index: 20; opacity: 0; visibility: hidden; transform: translateY(-4px); transition: opacity 0.25s ease, transform 0.25s ease, visibility 0s 0.25s; pointer-events: none; }
+    .leistung-card.open .l-body { opacity: 1; visibility: visible; transform: translateY(0); transition: opacity 0.25s ease, transform 0.25s ease, visibility 0s 0s; pointer-events: auto; }
+    .l-num { font-family: var(--serif); font-size: 12px; color: var(--muted); margin-bottom: 10px; transition: color 0.3s; }
+    .l-name { font-family: var(--serif); font-size: 19px; font-weight: 400; color: var(--text); line-height: 1.3; transition: color 0.3s; }
+    .l-line { width: 28px; height: 1px; background: rgba(255,255,255,0.2); margin: 0 0 12px; }
+    .l-desc { font-family: var(--sans); font-size: 14px; line-height: 1.75; color: rgba(255,255,255,0.75); font-weight: 300; }
 
     /* BRANCHEN */
     .section-branchen { background: var(--bg); padding: 72px 56px; min-height: 100dvh; display: flex; flex-direction: column; justify-content: center }
@@ -638,10 +636,11 @@
       }
     });
 
-    // ── Desktop Accordion (Leistungsbereiche) ────────────────────────────────
+    // ── Desktop Accordion (Leistungsbereiche) – overlay style ────────────────
     function initDesktopAccordion() {
       if (window.innerWidth <= 640) return;
-      document.querySelectorAll('.leistung-card').forEach(card => {
+      const cards = [...document.querySelectorAll('.leistung-card')];
+      cards.forEach(card => {
         if (card.dataset.deskAcc) return;
         card.dataset.deskAcc = '1';
         const num  = card.querySelector('.l-num');
@@ -668,8 +667,14 @@
         card.innerHTML = '';
         card.appendChild(header);
         card.appendChild(body);
-        card.addEventListener('click', () => card.classList.toggle('open'));
+        card.addEventListener('click', e => {
+          e.stopPropagation();
+          const wasOpen = card.classList.contains('open');
+          cards.forEach(c => c.classList.remove('open'));
+          if (!wasOpen) card.classList.add('open');
+        });
       });
+      document.addEventListener('click', () => cards.forEach(c => c.classList.remove('open')));
     }
 
     // ── Mobile Accordion ─────────────────────────────────────────────────────

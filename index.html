@@ -99,8 +99,8 @@
     .about-title { font-family: var(--serif); font-size: clamp(26px, 2.8vw, 40px); font-weight: 400; color: #fff; line-height: 1.2; margin-bottom: 28px; }
     .about-text { font-family: var(--sans); font-size: 17px; line-height: 1.75; color: rgba(255,255,255,0.6); font-weight: 300; margin-bottom: 24px; }
     .about-tiles { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
-    .about-tile { border: 1px solid rgba(255,255,255,0.10); border-top: 2px solid rgba(184,154,106,0.55); padding: 28px 26px; display: flex; flex-direction: column; gap: 10px; transition: border-color 0.3s, border-top-color 0.3s, background 0.3s; cursor: default; }
-    .about-tile:hover { border-color: rgba(184,154,106,0.35); border-top-color: var(--gold); background: rgba(184,154,106,0.10); }
+    .about-tile { border: 1px solid rgba(255,255,255,0.10); border-top: 2px solid rgba(184,154,106,0.55); padding: 28px 26px; display: flex; flex-direction: column; gap: 10px; transition: border-color 0.3s, border-top-color 0.3s, background 0.3s, transform 0.3s ease, box-shadow 0.3s ease; cursor: default; transform: scale(1); }
+    .about-tile:hover { border-color: rgba(184,154,106,0.35); border-top-color: var(--gold); background: rgba(184,154,106,0.10); transform: scale(1.04); box-shadow: 0 12px 40px rgba(0,0,0,0.35); }
     .about-tile:hover .tile-value { color: var(--gold); }
     .about-tile:hover .tile-label { color: rgba(255,255,255,0.65); }
     .tile-value { font-family: var(--serif); font-size: clamp(19px, 1.7vw, 26px); font-weight: 400; color: #fff; line-height: 1.2; transition: color 0.3s; }
@@ -574,6 +574,16 @@
       if (e.key === 'ArrowDown' || e.key === 'PageDown') { e.preventDefault(); goToSection(fpIdx + 1); }
       if (e.key === 'ArrowUp'   || e.key === 'PageUp')   { e.preventDefault(); goToSection(fpIdx - 1); }
     });
+
+    // Handle incoming hash links from other pages (e.g. /#about from /gewerbe nav)
+    if (window.location.hash) {
+      const hashId = window.location.hash.slice(1);
+      const hashTarget = document.getElementById(hashId);
+      if (hashTarget) {
+        const hashIdx = fpSections.indexOf(hashTarget);
+        if (hashIdx !== -1) setTimeout(() => goToSection(hashIdx), 200);
+      }
+    }
 
     // Navigate to section via data-goto attribute — always jumps, bypasses fpLock/fpIdx
     document.querySelectorAll('[data-goto]').forEach(link => {
