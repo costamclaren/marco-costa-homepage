@@ -84,16 +84,24 @@
 
     /* LEISTUNGEN */
     .section-leistungen { background: var(--white); padding: 72px 56px; height: 100dvh; overflow-y: auto; overscroll-behavior-y: contain; }
-    .section-leistungen .section-title { margin-bottom: 56px; }
+    .section-leistungen .section-title { margin-bottom: 48px; }
     .leistungen-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; }
-    .leistung-card { background: var(--bg); padding: 40px 32px; border: 1px solid rgba(45,48,53,0.07); transition: background 0.35s, border-color 0.35s; cursor: default; }
-    .leistung-card:hover { background: var(--anthrazit); border-color: var(--anthrazit); }
-    .leistung-card:hover .l-num, .leistung-card:hover .l-name, .leistung-card:hover .l-desc { color: rgba(255,255,255,0.85); }
-    .leistung-card:hover .l-line { background: rgba(255,255,255,0.15); }
-    .l-num { font-family: var(--serif); font-size: 12px; color: var(--muted); margin-bottom: 22px; transition: color 0.35s; }
-    .l-name { font-family: var(--serif); font-size: 22px; font-weight: 400; color: var(--text); line-height: 1.3; margin-bottom: 14px; transition: color 0.35s; }
-    .l-line { width: 28px; height: 1px; background: var(--border); margin-bottom: 14px; transition: background 0.35s; }
-    .l-desc { font-family: var(--sans); font-size: 16px; line-height: 1.75; color: var(--muted); font-weight: 300; transition: color 0.35s; }
+    .leistung-card { background: var(--bg); padding: 26px 24px; border: 1px solid rgba(45,48,53,0.07); transition: background 0.35s, border-color 0.35s; cursor: pointer; }
+    .leistung-card.open { background: var(--anthrazit); border-color: var(--anthrazit); }
+    .leistung-card.open .l-num { color: rgba(255,255,255,0.45); }
+    .leistung-card.open .l-name { color: #fff; }
+    .leistung-card.open .l-desc { color: rgba(255,255,255,0.7); }
+    .leistung-card.open .l-line { background: rgba(255,255,255,0.15); }
+    .leistung-card.open .l-toggle { transform: rotate(45deg); }
+    .l-header { display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; }
+    .l-left { flex: 1; min-width: 0; }
+    .l-toggle { font-size: 22px; font-weight: 300; color: var(--gold); line-height: 1; flex-shrink: 0; transition: transform 0.35s; margin-top: 4px; }
+    .l-body { max-height: 0; overflow: hidden; transition: max-height 0.45s ease; }
+    .leistung-card.open .l-body { max-height: 260px; }
+    .l-num { font-family: var(--serif); font-size: 12px; color: var(--muted); margin-bottom: 10px; transition: color 0.35s; }
+    .l-name { font-family: var(--serif); font-size: 19px; font-weight: 400; color: var(--text); line-height: 1.3; transition: color 0.35s; }
+    .l-line { width: 28px; height: 1px; background: var(--border); margin: 14px 0 10px; transition: background 0.35s; }
+    .l-desc { font-family: var(--sans); font-size: 14px; line-height: 1.75; color: var(--muted); font-weight: 300; transition: color 0.35s; }
 
     /* BRANCHEN */
     .section-branchen { background: var(--bg); padding: 72px 56px; min-height: 100dvh; display: flex; flex-direction: column; justify-content: center }
@@ -198,8 +206,11 @@
       .hero-content { padding: 0 20px 40px; display: flex; flex-direction: column; height: calc(100dvh - 72px); }
       .hero-title { font-size: 34px; margin-top: auto; }
       .hero-sub { font-size: 22px; margin-top: 14px; margin-bottom: auto; }
-      .section-intro, .section-leistungen, .section-branchen, .section-prozess, .section-cta { padding: 48px 20px; }
-      footer { padding: 48px 20px 32px; }
+      .section-intro, .section-leistungen, .section-branchen, .section-prozess, .section-cta { padding: 88px 20px 48px; }
+      .section-prozess .section-title, .section-leistungen .section-title, .section-intro .section-title { margin-bottom: 28px; }
+      .section-intro, .section-prozess, .section-branchen { height: 100dvh; overflow-y: auto; overscroll-behavior-y: contain; justify-content: flex-start; min-height: unset; }
+      .section-cta { height: 100dvh; overflow: hidden; min-height: unset; }
+      footer { padding: 56px 20px 64px; }
       .leistungen-grid { grid-template-columns: 1fr; }
       .branchen-grid { grid-template-columns: 1fr 1fr; }
       .prozess-grid { grid-template-columns: 1fr; }
@@ -211,6 +222,24 @@
       .modal { padding: 36px 20px; }
       .form-row { grid-template-columns: 1fr; }
       .cta-inner { gap: 32px; }
+      /* Mobile Accordion */
+      .prozess-grid, .leistungen-grid { display: flex; flex-direction: column; gap: 0; }
+      .prozess-step, .leistung-card { padding: 0; border: none; border-bottom: 1px solid rgba(255,255,255,0.12); background: transparent; cursor: pointer; }
+      .leistung-card { border-bottom-color: var(--border); }
+      .prozess-step:first-child { border-top: 1px solid rgba(255,255,255,0.12); }
+      .leistung-card:first-child { border-top: 1px solid var(--border); }
+      .acc-row { display: flex; align-items: center; gap: 12px; padding: 16px 0; width: 100%; }
+      .acc-row .p-num, .acc-row .l-num { font-size: 11px; color: rgba(255,255,255,0.35); margin-bottom: 0; flex-shrink: 0; width: 22px; }
+      .leistung-card .acc-row .l-num { color: var(--muted); }
+      .acc-row .p-name, .acc-row .l-name { font-size: 16px; font-weight: 400; color: #fff; margin-bottom: 0; flex: 1; line-height: 1.3; }
+      .leistung-card .acc-row .l-name { color: var(--text); }
+      .acc-icon { margin-left: auto; font-size: 22px; font-weight: 300; color: var(--gold); transition: transform 0.3s; flex-shrink: 0; line-height: 1; }
+      .prozess-step.open .acc-icon, .leistung-card.open .acc-icon { transform: rotate(45deg); }
+      .acc-body { max-height: 0; overflow: hidden; transition: max-height 0.4s ease; }
+      .prozess-step.open .acc-body, .leistung-card.open .acc-body { max-height: 320px; }
+      .acc-body .p-desc, .acc-body .l-desc { font-size: 14px; line-height: 1.7; padding: 0 0 16px 34px; color: rgba(255,255,255,0.55); margin: 0; }
+      .leistung-card .acc-body .l-desc { color: var(--muted); }
+      .acc-body .p-line, .acc-body .l-line { display: none; }
     }
   </style>
   <link rel="stylesheet" href="/cookie-consent.css" />
@@ -608,6 +637,73 @@
         alert(msg);
       }
     });
+
+    // ── Desktop Accordion (Leistungsbereiche) ────────────────────────────────
+    function initDesktopAccordion() {
+      if (window.innerWidth <= 640) return;
+      document.querySelectorAll('.leistung-card').forEach(card => {
+        if (card.dataset.deskAcc) return;
+        card.dataset.deskAcc = '1';
+        const num  = card.querySelector('.l-num');
+        const name = card.querySelector('.l-name');
+        const line = card.querySelector('.l-line');
+        const desc = card.querySelector('.l-desc');
+        if (!name || !desc) return;
+        const header = document.createElement('div');
+        header.className = 'l-header';
+        const left = document.createElement('div');
+        left.className = 'l-left';
+        if (num) left.appendChild(num);
+        left.appendChild(name);
+        const toggle = document.createElement('span');
+        toggle.className = 'l-toggle';
+        toggle.setAttribute('aria-hidden', 'true');
+        toggle.textContent = '+';
+        header.appendChild(left);
+        header.appendChild(toggle);
+        const body = document.createElement('div');
+        body.className = 'l-body';
+        if (line) body.appendChild(line);
+        body.appendChild(desc);
+        card.innerHTML = '';
+        card.appendChild(header);
+        card.appendChild(body);
+        card.addEventListener('click', () => card.classList.toggle('open'));
+      });
+    }
+
+    // ── Mobile Accordion ─────────────────────────────────────────────────────
+    function initAccordion() {
+      if (window.innerWidth > 640) return;
+      document.querySelectorAll('.prozess-step, .leistung-card').forEach(item => {
+        if (item.dataset.acc) return;
+        item.dataset.acc = '1';
+        const num  = item.querySelector('.p-num, .l-num');
+        const name = item.querySelector('.p-name, .l-name');
+        const line = item.querySelector('.p-line, .l-line');
+        const desc = item.querySelector('.p-desc, .l-desc');
+        if (!name || !desc) return;
+        const row = document.createElement('div');
+        row.className = 'acc-row';
+        if (num) row.appendChild(num);
+        row.appendChild(name);
+        const icon = document.createElement('span');
+        icon.className = 'acc-icon';
+        icon.setAttribute('aria-hidden', 'true');
+        icon.textContent = '+';
+        row.appendChild(icon);
+        const body = document.createElement('div');
+        body.className = 'acc-body';
+        if (line) body.appendChild(line);
+        body.appendChild(desc);
+        item.innerHTML = '';
+        item.appendChild(row);
+        item.appendChild(body);
+        row.addEventListener('click', () => item.classList.toggle('open'));
+      });
+    }
+    document.addEventListener('DOMContentLoaded', initDesktopAccordion);
+    document.addEventListener('DOMContentLoaded', initAccordion);
   </script>
 
   <!-- Cookie Consent Banner -->
